@@ -11,6 +11,9 @@ pids
 logs
 results
 
+public/app.js
+public/templates.js
+
 bower_components
 npm-debug.log
 node_modules
