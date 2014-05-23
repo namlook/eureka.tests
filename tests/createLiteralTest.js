@@ -1,44 +1,39 @@
 
-test('New literal', function() {
-    expect(13);
+test('New literal form', function() {
+    expect(19);
     visit("/");
-    click(find('a:contains("Literal")').next());
+    click('.menu-item.literal > .action-new');
 
     andThen(function() {
-        equal(find('h1').text(), "New Literal", "The title form is rendered");
-        equal(find('legend:eq(0)').text(), "string", "The first field is a string");
-        equal(find('input:eq(0)').attr('type'), "text", "A string is a text input");
-        equal(find('input:eq(0)').attr('name'), "string", "Its name is 'string'");
+        equal(currentURL(), '/literal/new', "The formular is displayed");
 
-        equal(find('legend:eq(1)').text(), "boolean", "The second field is a boolean");
-        equal(find('input:eq(1)').attr('type'), "checkbox", "A boolean is a checkbox");
-        equal(find('input:eq(1)').attr('name'), "boolean", "Its name is 'boolean'");
+        equal(find('.new-document-title').text(), "New Literal", "The title form is rendered");
+
+        equal(find('.field:eq(0) .field-name').text(), "string", "The first field's name is 'string'");
+        equal(find('.field:eq(0) .field-input').attr('type'), "text", "A string is a text input");
+        equal(find('.field:eq(0) .field-input').attr('name'), "string", "Its name is 'string'");
+
+        equal(find('.field:eq(1) .field-name').text(), "boolean", "The second field's name is 'boolean'");
+        equal(find('.field:eq(1) .field-input').attr('type'), "checkbox", "A boolean is a checkbox");
+        equal(find('.field:eq(1) .field-input').attr('name'), "boolean", "Its name is 'boolean'");
 
 
-        equal(find('legend:eq(2)').text(), "integer", "The third field is an integer");
-        equal(find('input:eq(2)').attr('type'), "number", "An integer is a number");
-        equal(find('input:eq(2)').attr('name'), "integer", "Its name is 'integer'");
+        equal(find('.field:eq(2) .field-name').text(), "integer", "The third field's name is 'integer'");
+        equal(find('.field:eq(2) .field-input').attr('type'), "number", "An integer is a number");
+        equal(find('.field:eq(2) .field-input').attr('name'), "integer", "Its name is 'integer'");
 
-        equal(find('legend:eq(3)').text(), "float", "The fourth field is a float");
-        equal(find('input:eq(3)').attr('type'), "number", "An float is a number");
-        equal(find('input:eq(3)').attr('name'), "float", "Its name is 'float'");
-    });
-});
+        equal(find('.field:eq(3) .field-name').text(), "float", "The fourth field's name is 'float'");
+        equal(find('.field:eq(3) .field-input').attr('type'), "number", "An float is a number");
+        equal(find('.field:eq(3) .field-input').attr('name'), "float", "Its name is 'float'");
 
-test('New literal: date field', function() {
-    expect(6);
-    visit('/literal/new');
-
-    andThen(function() {
-        equal(find('h1').text(), "New Literal", "The title form is rendered");
-
-        equal(find('legend:eq(4)').text(), "date", "The fifth field is a date");
-        equal(find('input:eq(4)').attr('type'), "text", "An date is a text input");
-        equal(find('input:eq(4)').attr('name'), "date", "Its name is 'date'");
+        // date field
+        equal(find('.field:eq(4) .field-name').text(), "date", "The fifth field's name is 'date'");
+        equal(find('.field:eq(4) .field-input').attr('type'), "text", "An date is a text input");
+        equal(find('.field:eq(4) .field-input').attr('name'), "date", "Its name is 'date'");
 
         equal(find('.picker').attr('aria-hidden'), "true", "The date picker is hidden");
 
-        click('input:eq(4)');
+        click('.field-input:eq(4)');
 
         andThen(function() {
             equal(find('.picker').attr('aria-hidden'), "false", "The date picker is visible");
@@ -49,19 +44,18 @@ test('New literal: date field', function() {
 
 
 test('Create a literal', function() {
-    expect(11);
+    expect(18);
     visit('/');
-
     andThen(function() {
         equal(find('.result-item').length, 0, "No result yet");
 
         visit('/literal/new');
 
-        fillIn('input[name=string]', 'Hello World');
-        fillIn('input[name=float]', '3.14');
-        click('input[name=boolean]');
-        fillIn('input[name=integer]', '42');
-        click('input[name=date]');
+        fillIn('.field-input[name=string]', 'Hello World');
+        fillIn('.field-input[name=float]', '3.14');
+        click('.field-input[name=boolean]');
+        fillIn('.field-input[name=integer]', '42');
+        click('.field-input[name=date]');
         click('.picker__footer > button:contains("Today")');
 
         click('button.save');
@@ -70,22 +64,35 @@ test('Create a literal', function() {
         andThen(function() {
             equal(currentURL(), '/literal', 'We go back to the literals list');
             equal(find('.result-item').length, 1, "We have now 1 result");
-            equal(find('.result-item > .title > a').text().trim(), 'Hello World (3.14)', "The result has a correct title");
+            equal(find('.result-item > .item-title > a').text().trim(), 'Hello World', "The result has a correct title");
 
-            click('.result-item > .title > a:contains("Hello World (3.14)")');
+            equal(find('.result-item .item-description').length, 0, "The result has no description");
+            equal(find('.result-item .item-thumb').length, 0, "The result has no thumb");
 
+
+            click('.result-item > .item-title > a:contains("Hello World")');
             andThen(function() {
                 equal(currentPath(), 'type.display');
-                equal(find('h1:contains("Hello World (3.14)")').length, 1, "The document should have the correct title");
+                equal(find('.document-title:contains("Hello World")').length, 1, "The document should have the correct title");
 
-                equal(find('fieldset legend:contains("string")').parent(':contains("Hello World")').length, 1, "string is filled with Hello World");
-                equal(find('fieldset legend:contains("float")').parent(':contains("3.14")').length, 1, "float is filled with 3.14");
-                equal(find('fieldset legend:contains("boolean")').parent(':contains("true")').length, 1, "boolean is true");
-                equal(find('fieldset legend:contains("integer")').parent(':contains("42")').length, 1, "integer is filled with 42");
+                equal(find('.document .field:eq(0) .field-name').text(), "string", "the first field name is 'string'");
+                equal(find('.document .field:eq(0) .field-value').text().trim(), "Hello World", "string is correctly filled");
+
+                equal(find('.document .field:eq(1) .field-name').text(), "boolean", "the second field name is 'boolean'");
+                equal(find('.document .field:eq(1) .field-value').text().trim(), "true", "boolean is correctly filled");
+
+                equal(find('.document .field:eq(2) .field-name').text(), "integer", "the third field name is 'integer'");
+                equal(find('.document .field:eq(2) .field-value').text().trim(), "42", "integer is correctly filled");
+
+                equal(find('.document .field:eq(3) .field-name').text(), "float", "the fourth field name is 'float'");
+                equal(find('.document .field:eq(3) .field-value').text().trim(), "3.14", "float is correctly filled");
+
+                equal(find('.document .field:eq(4) .field-name').text(), "date", "the fifth field name is 'date'");
+                var valueYear = new Date(find('.document .field:eq(4) .field-value').text()).getFullYear();
                 var thisYear = new Date().getFullYear();
-                equal(find('fieldset legend:contains("date")').parent(':contains("'+thisYear+'")').length, 1, "date is filled with "+thisYear);
+                equal(valueYear, thisYear, "date is correctly filled");
+
             });
         });
-
     });
 });
