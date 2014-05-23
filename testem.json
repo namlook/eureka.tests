@@ -12,7 +12,9 @@
         "bower_components/eurekapp/index.js",
         "bower_components/eurekapp/templates.js",
         "public/app.js",
-        "tests/tests.js"
+        "tests/base.js",
+        "tests/homepageTest.js",
+        "tests/createLiteralTest.js"
     ],
     "launch_in_dev": ["PhantomJS", "Firefox", "Safari"],
     "launch_in_ci": ["PhantomJS", "Firefox", "Safari"]
