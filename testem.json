@@ -18,6 +18,6 @@
         "tests/createCustomDescriptorTest.js",
         "tests/createLiteralTest.js"
     ],
-    "launch_in_dev": ["PhantomJS", "Firefox", "Safari"],
-    "launch_in_ci": ["PhantomJS", "Firefox", "Safari"]
+    "launch_in_dev": ["PhantomJS", "Firefox", "Safari", "Chrome"],
+    "launch_in_ci": ["PhantomJS", "Firefox", "Safari", "Chrome"]
 }
