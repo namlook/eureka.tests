@@ -24,7 +24,7 @@ test('Create a CustomDescriptor (boolean true)', function() {
 
             click('.result-item > .item-title > a:contains("Hello World (3.14)")');
             andThen(function() {
-                equal(currentPath(), 'type.display');
+                equal(currentPath(), 'generic_model.display');
                 equal(find('.document-title:contains("Hello World (3.14)")').length, 1, "The document should have the correct title");
                 equal(find('.document-description:contains("42 persons")').length, 1, "The document should have the correct description");
                 equal(find('.document-thumb').attr('src'), "http://placehold.it/42x42", "The document should have the correct thumb url");
@@ -58,7 +58,7 @@ test('Create a CustomDescriptor (boolean false)', function() {
 
             click('.result-item > .item-title > a:contains("Hello World (3.14)")');
             andThen(function() {
-                equal(currentPath(), 'type.display');
+                equal(currentPath(), 'generic_model.display');
                 equal(find('.document-title:contains("Hello World (3.14)")').length, 1, "The document should have the correct title");
                 equal(find('.document-description:contains("no one")').length, 1, "The document should have the correct description");
                 equal(find('.document-thumb').attr('src'), "http://placehold.it/42x42", "The document should have the correct thumb url");

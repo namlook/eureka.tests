@@ -2,7 +2,7 @@
 test('New literal form', function() {
     expect(19);
     visit("/");
-    click('.menu-item.literal > .action-new');
+    click('.menu-item.literal > .go-to-model-new');
 
     andThen(function() {
         equal(currentURL(), '/literal/new', "The formular is displayed");
@@ -72,7 +72,7 @@ test('Create a literal', function() {
 
             click('.result-item > .item-title > a:contains("Hello World")');
             andThen(function() {
-                equal(currentPath(), 'type.display');
+                equal(currentPath(), 'generic_model.display');
                 equal(find('.document-title:contains("Hello World")').length, 1, "The document should have the correct title");
 
                 equal(find('.document .field:eq(0) .field-name').text(), "string", "the first field name is 'string'");

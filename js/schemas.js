@@ -59,5 +59,21 @@ module.exports = {
                 type: 'date'
             }
         }
+    },
+    CustomTemplate: {
+        schema: {
+            title: {
+                type: 'string'
+            },
+            description: {
+                type: 'string'
+            },
+            thumb: {
+                type: 'string'
+            },
+            boolean: {
+                type: 'boolean'
+            }
+        }
     }
 };

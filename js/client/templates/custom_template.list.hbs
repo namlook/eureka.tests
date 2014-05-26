@@ -1,0 +1,11 @@
+
+<h1 class="custom-title">This is the custom list</h1>
+
+{{#each item in model}}
+    <div class="item">
+        {{#link-to 'generic_model.display' item._type item._id classNames="item-title"}}
+            {{item.title}}{{#if item.boolean}} !!{{/if}}
+        {{/link-to}}
+        <p class="item-description">--{{item.description}}--</p>
+    </div>
+{{/each}}

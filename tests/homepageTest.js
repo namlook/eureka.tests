@@ -7,7 +7,7 @@ test("/", function() {
 
     andThen(function() {
         equal(find("h2").text(), "Welcome to EurekaTest", "Application header is rendered");
-        equal(find(".application-menu .menu-item").length, 3, "There are two model types registered");
+        equal(find(".application-menu .menu-item").length, 4, "There are two model types registered");
 
     });
 });

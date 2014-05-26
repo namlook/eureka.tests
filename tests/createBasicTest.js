@@ -2,7 +2,7 @@
 test('New basic form', function() {
     expect(11);
     visit("/");
-    click('.menu-item.basic > .action-new');
+    click('.menu-item.basic > .go-to-model-new');
 
     andThen(function() {
         equal(currentURL(), '/basic/new', "The formular is displayed");
@@ -50,7 +50,7 @@ test('Create a Basic', function() {
 
             click('.result-item:eq(0) > .item-title > a');
             andThen(function() {
-                equal(currentPath(), 'type.display');
+                equal(currentPath(), 'generic_model.display');
                 equal(find('.document-title:contains("The big title")').length, 1, "The document should have the correct title");
 
                 equal(find('.document .field:eq(0) .field-name').text(), "title", "the first field name is 'title'");
