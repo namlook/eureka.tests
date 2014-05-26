@@ -6,30 +6,21 @@ App = EurekaTest = Eurekapp({
     schemas: require('../schemas')
 });
 
-// EurekaTest.LiteralModel = EurekaTest.Model.extend({
 
-    // title: function() {
-    //     var _title = this.get('string');
-    //     if (this.get('float') !== undefined) {
-    //         _title += " <i>("+this.get('float')+")</i>";
-    //     }
-    //     return new Handlebars.SafeString(_title);
-    // }.property('string', 'float'),
+// custom model
+EurekaTest.CustomTemplateModel = EurekaTest.Model.extend({
+    customField: function() {
+        return "custom "+this.get('title');
+    }.property('title')
+});
 
-    // description: function() {
-    //     var _desc = this.get('integer')+' persons where born in ';
-    //     if (this.get('date')) {
-    //         _desc += this.get('date').getFullYear();
-    //     } else {
-    //         _desc += "?";
-    //     }
-    //     if (this.get('boolean')) {
-    //         _desc += ' woohoo !';
-    //     }
-    //     return _desc;
-    // }.property('date', 'integer', 'boolean')
 
-// });
+// custom controller: overload GenericModelEditController
+EurekaTest.CustomTemplateEditController = EurekaTest.GenericModelEditController.extend({
+    ctrlField: function() {
+        return this.get('model.title')+' from controller';
+    }.property('model.title')
+});
 
 /*
 // Custom router

@@ -5,7 +5,7 @@
  */
 
 test('Create a CustomTemplate', function() {
-    expect(13);
+    expect(14);
 
     visit('/custom_template/new');
 
@@ -22,7 +22,7 @@ test('Create a CustomTemplate', function() {
         equal(find('h1.custom-title').text(), "This is the custom list", "Display the custom list");
 
         equal(find('a.item-title:eq(0)').text().trim(), 'Hello World !!', "The result has a custom title");
-        equal(find('.item-description:eq(0)').text().trim(), '--Just a thought--', "The result has a custom description");
+        equal(find('.item-description:eq(0)').text().trim(), '--Just a thought:custom Hello World--', "The result has a custom description");
 
         click('a.item-title:contains("Hello World !!")');
         andThen(function() {
@@ -39,7 +39,8 @@ test('Create a CustomTemplate', function() {
 
             click('.go-to-model-edit');
             andThen(function() {
-                equal(find('.document').text().trim(), "This is a custom template. The model Hello World cannot be edited", "Display the custom template form");
+                equal(find('.document').text().trim(), "This is a custom template. The model Hello World cannot be edited even with custom Hello World", "Display the custom template form");
+                equal(find('.ctrl-field').text().trim(), "Hello World from controller", "Display the custom controller field");
             });
         });
     });
