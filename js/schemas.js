@@ -32,6 +32,9 @@ module.exports = {
             },
             date: {
                 type: 'date'
+            },
+            basic: {
+                type: 'Basic'
             }
         }
     },
@@ -73,6 +76,34 @@ module.exports = {
             },
             boolean: {
                 type: 'boolean'
+            }
+        }
+    },
+    Multi: {
+        schema: {
+            title: {
+                type: 'string'
+            },
+            string: {
+                type: 'string',
+                multi: true
+            },
+            integer: {
+                type: 'integer',
+                multi: true,
+                orderBy: 'desc'
+            },
+            float: {
+                type: 'float',
+                multi: true
+            },
+            date: {
+                type: 'date',
+                multi: true
+            },
+            basic: {
+                type: 'Basic',
+                multi: true
             }
         }
     }
