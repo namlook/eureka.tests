@@ -19,7 +19,8 @@
         "tests/createCustomDescriptorTest.js",
         "tests/createCustomTemplateTest.js",
         "tests/createLiteralTest.js",
-        "tests/createMultiTest.js"
+        "tests/createMultiTest.js",
+        "tests/datePickerTest.js"
     ],
     "launch_in_dev": ["PhantomJS", "Firefox", "Safari", "Chrome"],
     "launch_in_ci": ["PhantomJS", "Firefox", "Safari", "Chrome"]
