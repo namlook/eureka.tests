@@ -3,9 +3,9 @@
 
 {{#each item in model}}
     <div class="item">
-        {{#link-to 'generic_model.display' item._type item._id classNames="item-title"}}
+        {{#model-to 'display' item classNames="item-title"}}
             {{item.title}}{{#if item.boolean}} !!{{/if}}
-        {{/link-to}}
+        {{/model-to}}
         <p class="item-description">--{{item.description}}:{{item.customField}}--</p>
     </div>
 {{/each}}

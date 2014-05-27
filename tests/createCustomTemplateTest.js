@@ -5,7 +5,7 @@
  */
 
 test('Create a CustomTemplate', function() {
-    expect(14);
+    expect(15);
 
     visit('/custom_template/new');
 
@@ -37,10 +37,11 @@ test('Create a CustomTemplate', function() {
             equal(find('.document .field:eq(2) .field-name').text(), "boolean", "The third field is 'boolean'");
             equal(find('.document .field:eq(2) .field-value').text().trim(), "boolean oh yeah baby !!", "the boolean is customized");
 
-            click('.go-to-model-edit');
+            click('.model-to-edit');
             andThen(function() {
                 equal(find('.document').text().trim(), "This is a custom template. The model Hello World cannot be edited even with custom Hello World", "Display the custom template form");
                 equal(find('.ctrl-field').text().trim(), "Hello World from controller", "Display the custom controller field");
+                equal(find('.route-field').text().trim(), "hi!", "Display the value added by the custom route");
             });
         });
     });

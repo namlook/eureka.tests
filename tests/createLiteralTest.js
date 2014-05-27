@@ -2,7 +2,7 @@
 test('New literal form', function() {
     expect(19);
     visit("/");
-    click('.menu-item.literal > .go-to-model-new');
+    click('.menu-item.literal > .model-to-new');
 
     andThen(function() {
         equal(currentURL(), '/literal/new', "The formular is displayed");

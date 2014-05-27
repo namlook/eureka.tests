@@ -2,7 +2,7 @@
 test('New basic form', function() {
     expect(11);
     visit("/");
-    click('.menu-item.basic > .go-to-model-new');
+    click('.menu-item.basic > .model-to-new');
 
     andThen(function() {
         equal(currentURL(), '/basic/new', "The formular is displayed");
