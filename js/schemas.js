@@ -104,6 +104,10 @@ module.exports = {
             basic: {
                 type: 'Basic',
                 multi: true
+            },
+            literal: {
+                type: 'Literal',
+                multi: true
             }
         }
     }

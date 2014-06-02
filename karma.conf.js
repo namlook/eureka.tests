@@ -1,7 +1,9 @@
 
-{
-    "framework": "mocha",
-    "src_files": [
+// karma.conf.js
+module.exports = function(config) {
+  config.set({
+    frameworks: ['mocha', 'chai'],
+    files: [
         "bower_components/jquery/dist/jquery.js",
         "bower_components/handlebars/handlebars.js",
         "bower_components/ember/ember.js",
@@ -12,21 +14,30 @@
         "bower_components/typeahead.js/dist/typeahead.bundle.js",
         "bower_components/eurekapp/index.js",
         "bower_components/eurekapp/templates.js",
-        "bower_components/mocha/mocha.js",
-        "bower_components/chai/chai.js",
         "bower_components/ember-mocha-adapter/adapter.js",
+
         "public/app.js",
         "public/templates.js",
-        "tests/base.js",
-        "tests/basicTest.js",
-        "tests/literalTest.js",
-        "tests/multiTest.js",
-        "tests/customDescriptorTest.js",
-        "tests/customTemplateTest.js",
-        "tests/relationAutoSuggestTest.js",
-        "tests/datePickerTest.js",
-        "tests/homepageTest.js"
+
+        "tests/*.js"
     ],
-    "launch_in_dev": ["PhantomJS", "Firefox", "Safari", "Chrome"],
-    "launch_in_ci": ["PhantomJS", "Firefox", "Safari", "Chrome"]
-}
+
+    plugins: [
+      'karma-mocha',
+      'karma-chai',
+      // 'karma-coverage',
+      'karma-phantomjs-launcher',
+      // 'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-safari-launcher'  // npm install karma-safari-launcher
+    ],
+
+    autoWatch: true,
+    singleRun: true,
+    reporters: ['progress'],
+    browsers: [
+        // 'PhantomJS',
+        // 'Safari'
+    ]
+  });
+};

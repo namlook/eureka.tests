@@ -1,13 +1,14 @@
 
-// home page
-test("/", function() {
-    // async helper telling the application to go to the '/' route
-    expect(2);
-    visit("/");
+var equal = chai.assert.equal;
 
-    andThen(function() {
-        equal(find("h2").text(), "Welcome to EurekaTest", "Application header is rendered");
-        equal(find(".application-menu .menu-item").length, 5, "There are two model types registered");
+describe('homepage', function() {
+    it("/", function(done) {
+        visit("/");
 
+        andThen(function() {
+            equal(find("h2").text(), "Welcome to EurekaTest", "Application header is rendered");
+            equal(find(".application-menu .menu-item").length, 5, "There are two model types registered");
+            done();
+        });
     });
 });
