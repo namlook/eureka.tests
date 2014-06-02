@@ -27,7 +27,7 @@ module.exports = function(config) {
       'karma-chai',
       // 'karma-coverage',
       'karma-phantomjs-launcher',
-      // 'karma-chrome-launcher',
+      'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-safari-launcher'  // npm install karma-safari-launcher
     ],
