@@ -1,7 +1,6 @@
 
 // Adding ember-testing container
 document.write(
-    // '<div id="mocha">' +
     '<div id="ember-testing-container">' +
     '  <div id="ember-testing"></div>' +
     '</div>'
