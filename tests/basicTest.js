@@ -83,4 +83,35 @@ describe('Basic', function() {
 
         });
     });
+
+    it('Simple search basic', function(done) {
+        var model = App.db.Basic.get('model');
+        var titles = ['basic title 1', 'basic title 2',  'basic hello'];
+
+        Ember.RSVP.all(titles.map(function(title) {
+            return model.create({content: {title: title, integer: 40}}).save();
+        })).then(function() {
+            visit('/basic');
+
+            andThen(function() {
+                equal(find('.result-item').length, 3, "We have now 3 results");
+                fillIn('.simple-query', 'basic t');
+            });
+
+            andThen(function() {
+                Ember.run.later(function(){
+                    equal(find('.result-item').length, 2, "We have now 2 results");
+                    fillIn('.simple-query', 'basic title 1');
+                }, 300);
+            });
+
+            andThen(function() {
+                Ember.run.later(function(){
+                    equal(find('.result-item').length, 1, "We have now 1 results");
+                    done();
+                }, 300);
+            });
+
+        });
+    });
 });

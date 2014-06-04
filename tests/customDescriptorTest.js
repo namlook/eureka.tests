@@ -85,4 +85,36 @@ describe('CustomDescriptor', function() {
             });
         });
     });
+
+
+    it('Simple search CustomDescriptor (with custom searchField)', function(done) {
+        var model = App.db.CustomDescriptor.get('model');
+        var strings = ['custom title 1', 'custom title 2',  'custom hello'];
+
+        Ember.RSVP.all(strings.map(function(string) {
+            return model.create({content: {string: string}}).save();
+        })).then(function() {
+            visit('/custom_descriptor');
+
+            andThen(function() {
+                equal(find('.result-item').length, 3, "We have now 3 results");
+                equal(find('.simple-query').attr('placeholder'), 'search a really custom object...', "the placeholder should be set");
+                fillIn('.simple-query', 'custom title');
+            });
+
+            andThen(function() {
+                Ember.run.later(function(){
+                    equal(find('.result-item').length, 2, "We have now 2 results");
+                    fillIn('.simple-query', 'custom title 1');
+                }, 300);
+            });
+
+            andThen(function() {
+                Ember.run.later(function(){
+                    equal(find('.result-item').length, 1, "We have now 1 results");
+                    done();
+                }, 300);
+            });
+        });
+    });
 });

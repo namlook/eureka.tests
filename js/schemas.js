@@ -42,6 +42,11 @@ module.exports = {
         __title__: {template: "{{string}} {{#if float}}({{float}}){{/if}}"},
         __description__: {template: "{{#if boolean}}{{integer}} persons{{else}}no one{{/if}}"},
         __thumb__: {template: "http://placehold.it/{{integer}}x{{integer}}"},
+        search: {
+            field: 'string',
+            placeholder: 'search a really custom object...'
+        },
+        title: 'really custom descriptor',
         schema: {
             string: {
                 type: 'string',
@@ -80,6 +85,16 @@ module.exports = {
         }
     },
     Multi: {
+        // display: {
+        //     title: {bindTo: 'string'},
+        //     description: {template: '--{{string}}--'}
+        // },
+        // search: {
+        //     field: 'string',
+        //     placeholder: 'search a multi...',
+        //     sortBy: 'float',
+        //     orderBy: 'desc'
+        // },
         schema: {
             title: {
                 type: 'string'
