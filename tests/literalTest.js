@@ -5,6 +5,7 @@ var assert = chai.assert;
 describe('Literal', function() {
 
     beforeEach(function(done) {
+        App.reset();
         Ember.$.ajax({
             url: 'http://localhost:7999/api/1/',
             type: 'delete',
@@ -14,7 +15,6 @@ describe('Literal', function() {
         }).success(function() {
             done();
         });
-        App.reset();
     });
 
     it('disaply a new literal form', function(done) {
@@ -115,11 +115,13 @@ describe('Literal', function() {
 
 
     it('Edit a Basic relation from a Literal', function() {
-        App.db.Basic.get('model').create({content: {
-            title: 'basic title',
-            description: 'basic description',
-            thumb: 'http://placehold.it/65x65'
-        }}).save();
+        Ember.run(function() {
+            App.db.Basic.get('model').create({content: {
+                title: 'basic title',
+                description: 'basic description',
+                thumb: 'http://placehold.it/65x65'
+            }}).save();
+        });
 
         andThen(function(){
             visit('/literal/new');
@@ -133,7 +135,7 @@ describe('Literal', function() {
                 equal(find('.tt-suggestion').length, 2, "2 items in relations (including item creation)");
 
                 find('.tt-suggestion:eq(0)').click();
-            }, 500);
+            }, 700);
         });
 
         andThen(function() {
