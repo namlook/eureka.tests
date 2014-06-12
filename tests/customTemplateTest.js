@@ -25,10 +25,10 @@ describe('CustomTemplate', function() {
     it('Create a CustomTemplate', function(done) {
         visit('/custom_template/new');
 
-        fillIn('.field-input[name=title]', 'Hello World');
-        fillIn('.field-input[name=description]', 'Just a thought');
-        click('.field-input[name=boolean]');
-        click('button.save');
+        fillIn('.eureka-field-input[name=title]', 'Hello World');
+        fillIn('.eureka-field-input[name=description]', 'Just a thought');
+        click('.eureka-field-input[name=boolean]');
+        click('.eureka-save-action');
 
 
         andThen(function() {
@@ -44,16 +44,16 @@ describe('CustomTemplate', function() {
             andThen(function() {
                 equal(currentPath(), 'generic_model.display');
 
-                equal(find('.document .field:eq(0) .field-name').text(), "title", "The first field is 'title'");
-                equal(find('.document .field:eq(0) .field-value').text().trim(), "Hello World", "the title is correctly filled");
+                equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "title", "The first field is 'title'");
+                equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-value').text().trim(), "Hello World", "the title is correctly filled");
 
-                equal(find('.document .field:eq(1) .field-name').text(), "description", "The second field is 'description'");
-                equal(find('.document .field:eq(1) .field-value').text().trim(), "Just a thought", "the description is correctly filled");
+                equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-name').text(), "description", "The second field is 'description'");
+                equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-value').text().trim(), "Just a thought", "the description is correctly filled");
 
-                equal(find('.document .field:eq(2) .field-name').text(), "boolean", "The third field is 'boolean'");
-                equal(find('.document .field:eq(2) .field-value').text().trim(), "boolean oh yeah baby !!", "the boolean is customized");
+                equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "boolean", "The third field is 'boolean'");
+                equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-value').text().trim(), "boolean oh yeah baby !!", "the boolean is customized");
 
-                click('.model-to-edit');
+                click('.model-to-edit.custom-template');
                 andThen(function() {
                     equal(find('.document').text().trim(), "This is a custom template. The model Hello World cannot be edited even with custom Hello World", "Display the custom template form");
                     equal(find('.ctrl-field').text().trim(), "Hello World from controller", "Display the custom controller field");

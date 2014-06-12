@@ -21,22 +21,21 @@ describe("Test relation auto-suggest", function() {
         App.db.Basic.get('model').create({content: {
             title: 'basic title',
             description: 'basic description',
-            thumb: 'http://placehold.it/65x65'
+            thumb: 'http://placekitten.com/167/167'
         }}).save().then(function() {
 
             visit('/literal/new');
 
-            fillIn('.field-input[name=basic]', 'basic');
+            fillIn('.eureka-field-input[name=basic]', 'basic');
 
-            triggerEvent('.field-input[name=basic]', 'blur');
+            triggerEvent('.eureka-field-input[name=basic]', 'blur');
 
             andThen(function() {
-                expect(find('.field-input[name=basic]').val()).to.be.equal('');
+                expect(find('.eureka-field-input[name=basic]').val()).to.be.equal('');
 
-                find('.field-input[name=basic]').focus().typeahead('val', 'basic');
+                find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic');
 
                 Ember.run.later(function(){
-                    console.log(find('.tt-suggestions').html());
                     expect(find('.tt-suggestion').length).to.be.equal(2);
                     expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title');
                     expect(find('.tt-suggestion:eq(1):contains("create new Basic")').length).to.be.equal(1);
@@ -44,7 +43,7 @@ describe("Test relation auto-suggest", function() {
                     $('.tt-suggestion:eq(0)').click();
 
                     andThen(function() {
-                        expect(find('.selected-relation.basic:contains("basic title")').length).to.be.equal(1);
+                        expect(find('.eureka-selected-relation.basic:contains("basic title")').length).to.be.equal(1);
                         done();
                     });
                 }, 500);
@@ -57,14 +56,14 @@ describe("Test relation auto-suggest", function() {
         App.db.Basic.get('model').create({content: {
             title: 'basic title 1',
             description: 'basic description 1',
-            thumb: 'http://placehold.it/65x65'
+            thumb: 'http://placekitten.com/167/167'
         }}).save();
 
 
         App.db.Basic.get('model').create({content: {
             title: 'basic title 2',
             description: 'basic description 2',
-            thumb: 'http://placehold.it/70x70'
+            thumb: 'http://placekitten.com/170/170'
         }}).save();
 
         andThen(function() {
@@ -72,14 +71,14 @@ describe("Test relation auto-suggest", function() {
             visit('/basic');
             visit('/multi/new');
 
-            fillIn('.field-input[name=basic]', 'basic ti');
+            fillIn('.eureka-field-input[name=basic]', 'basic ti');
 
-            triggerEvent('.field-input[name=basic]', 'blur');
+            triggerEvent('.eureka-field-input[name=basic]', 'blur');
 
             andThen(function() {
-                expect(find('.field-input[name=basic]').val()).to.be.equal('');
+                expect(find('.eureka-field-input[name=basic]').val()).to.be.equal('');
 
-                find('.field-input[name=basic]').focus().typeahead('val', 'basic ti');  // be carreful with typeahead cache !!
+                find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic ti');  // be carreful with typeahead cache !!
 
                 Ember.run.later(function(){
                     expect(find('.tt-suggestion').length).to.be.equal(3);
@@ -91,10 +90,10 @@ describe("Test relation auto-suggest", function() {
 
                     Ember.run.later(function(){
                         andThen(function() {
-                            expect(find('.selected-relation').length).to.be.equal(1);
-                            expect(find('.selected-relation.basic:eq(0):contains("basic title 1")').length).to.be.equal(1);
+                            expect(find('.eureka-selected-relation').length).to.be.equal(1);
+                            expect(find('.eureka-selected-relation.basic:eq(0):contains("basic title 1")').length).to.be.equal(1);
 
-                            find('.field-input[name=basic]').focus().typeahead('val', 'basic ti');
+                            find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic ti');
 
                             Ember.run.later(function(){
                                 expect(find('.tt-suggestion').length).to.be.equal(3);
@@ -105,8 +104,8 @@ describe("Test relation auto-suggest", function() {
                                 $('.tt-suggestion:eq(1)').click();
 
                                 andThen(function() {
-                                    expect(find('.selected-relation').length).to.be.equal(2);
-                                    expect(find('.selected-relation.basic:eq(1):contains("basic title 2")').length).to.be.equal(1);
+                                    expect(find('.eureka-selected-relation').length).to.be.equal(2);
+                                    expect(find('.eureka-selected-relation.basic:eq(1):contains("basic title 2")').length).to.be.equal(1);
                                     done();
                                 });
                             }, 300);
@@ -134,14 +133,14 @@ describe("Test relation auto-suggest", function() {
             expect(13);
             visit('/multi/new');
 
-            fillIn('.field-input[name=literal]', 'liter');
+            fillIn('.eureka-field-input[name=literal]', 'liter');
 
-            triggerEvent('.field-input[name=literal]', 'blur');
+            triggerEvent('.eureka-field-input[name=literal]', 'blur');
 
             andThen(function() {
-                expect(find('.field-input[name=literal]').val()).to.be.equal('');
+                expect(find('.eureka-field-input[name=literal]').val()).to.be.equal('');
 
-                find('.field-input[name=literal]').focus().typeahead('val', 'liter');
+                find('.eureka-field-input[name=literal]').focus().typeahead('val', 'liter');
 
                 Ember.run.later(function(){
                     expect(find('.tt-suggestion').length).to.be.equal(3);
@@ -153,10 +152,10 @@ describe("Test relation auto-suggest", function() {
 
                     Ember.run.later(function(){
                         andThen(function() {
-                            expect(find('.selected-relation').length).to.be.equal(1);
-                            expect(find('.selected-relation.literal:eq(0):contains("literal 1")').length).to.be.equal(1);
+                            expect(find('.eureka-selected-relation').length).to.be.equal(1);
+                            expect(find('.eureka-selected-relation.literal:eq(0):contains("literal 1")').length).to.be.equal(1);
 
-                            find('.field-input[name=literal]').focus().typeahead('val', 'liter');
+                            find('.eureka-field-input[name=literal]').focus().typeahead('val', 'liter');
 
                             Ember.run.later(function(){
                                 expect(find('.tt-suggestion').length).to.be.equal(3);
@@ -167,8 +166,8 @@ describe("Test relation auto-suggest", function() {
                                 $('.tt-suggestion:eq(1)').click();
 
                                 andThen(function() {
-                                    expect(find('.selected-relation').length).to.be.equal(2);
-                                    expect(find('.selected-relation.literal:eq(1):contains("literal 2")').length).to.be.equal(1);
+                                    expect(find('.eureka-selected-relation').length).to.be.equal(2);
+                                    expect(find('.eureka-selected-relation.literal:eq(1):contains("literal 2")').length).to.be.equal(1);
                                     done();
                                 });
                             }, 300);

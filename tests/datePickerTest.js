@@ -8,30 +8,30 @@ describe('DatePicker', function() {
 
         andThen(function() {
             // date field
-            equal(find('.picker').attr('aria-hidden'), "true", "The date picker is hidden");
+            equal(find('.eureka-field-input[name=date].picker__input--active').length, 0, "The date picker is hidden");
 
-            click('.field-input[name=date]');
+            click('.eureka-field-input[name=date]');
 
             andThen(function() {
-                equal(find('.picker').attr('aria-hidden'), "false", "The date picker is visible");
+                equal(find('.eureka-field-input[name=date].picker__input--active').length, 1, "The date picker is visible");
 
                 click('.picker .picker__button--today');
 
                 andThen(function() {
-                    var todayEpoc = find('.field-input[name=date]').attr('data-value');
-                    var today = new Date(parseInt(todayEpoc, 10));
+                    var todayEpoc = find('.eureka-field-input[name=date]').attr('data-value');
+                    var today = new Date(todayEpoc);
 
-                    click('.field-input[name=date]');
+                    click('.eureka-field-input[name=date]');
                     click('.picker .picker__nav--prev');
                     click('.picker .picker__day--highlighted');
 
                     andThen(function() {
-                        var choosenDateEpoc = find('.field-input[name=date]').attr('data-value');
-                        var choosenDate = new Date(parseInt(choosenDateEpoc, 10));
+                        var choosenDateEpoc = find('.eureka-field-input[name=date]').attr('data-value');
+                        var choosenDate = new Date(choosenDateEpoc);
                         if (today.getMonth() > 0) {
-                            equal(choosenDate.getMonth(), today.getMonth() -1, 'The choosen date is from the previous month');
+                            equal(choosenDate.getMonth(), today.getMonth() -1, 'The choosen date is from the previous month (1)');
                         } else {
-                            equal(choosenDate.getMonth(), 12, 'The choosen date is from the previous month');
+                            equal(choosenDate.getMonth(), 12, 'The choosen date is from the previous month (2)');
                         }
                         done();
                     });

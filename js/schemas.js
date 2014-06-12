@@ -41,10 +41,12 @@ module.exports = {
     CustomDescriptor: {
         __title__: {template: "{{string}} {{#if float}}({{float}}){{/if}}"},
         __description__: {template: "{{#if boolean}}{{integer}} persons{{else}}no one{{/if}}"},
-        __thumb__: {template: "http://placehold.it/{{integer}}x{{integer}}"},
+        __thumb__: {template: "http://placekitten.com/{{integer}}/{{integer}}"},
         search: {
             field: 'string',
-            placeholder: 'search a really custom object...'
+            placeholder: 'search a really custom object...',
+            advancedPlaceholder: 'integer > 15 && boolean = true',
+            sortBy: '-integer,float'
         },
         title: 'really custom descriptor',
         schema: {
@@ -123,6 +125,11 @@ module.exports = {
             literal: {
                 type: 'Literal',
                 multi: true
+                // suggest: {
+                //     field: 'string',
+                //     sortBy: '-integer',
+                //     title: {template: "erf: {{title}}"}
+                // }
             }
         }
     }

@@ -4,6 +4,7 @@ module.exports = function(config) {
   config.set({
     frameworks: ['mocha', 'chai'],
     files: [
+      // TODO combine all the following files into a bundle
         "bower_components/jquery/dist/jquery.js",
         "bower_components/handlebars/handlebars.js",
         "bower_components/ember/ember.js",
@@ -13,8 +14,9 @@ module.exports = function(config) {
         "bower_components/pickadate/lib/picker.date.js",
         "bower_components/typeahead.js/dist/typeahead.bundle.js",
         "bower_components/alertify.js/lib/alertify.js",
-        "bower_components/eurekapp/index.js",
-        "bower_components/eurekapp/templates.js",
+        "bower_components/jQuery-Fakecrop/fakecrop/jquery.fakecrop.js",
+        "bower_components/eurekapp/index.js", // TODO move index.js into dist
+        "bower_components/eurekapp/dist/templates.js",
 
         "bower_components/ember-mocha-adapter/adapter.js",
 
