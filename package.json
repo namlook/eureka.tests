@@ -9,10 +9,10 @@
     "build": "npm run build-app && npm run build-templates",
     "drop-data": "isql exec=\"SPARQL CLEAR GRAPH 'http://eurekatest.com'\"",
     "data-import": "(cd ./data && coffee data-import.coffee > /tmp/data.ttl) && isql exec=\"DB.DBA.TTLP (file_to_string_output ('/tmp/data.ttl'), '', 'http://ceropath.org');\"",
-    "test": "testem ci",
+    "test": "karma start --browsers PhantomJS",
     "start": "node js/server"
   },
-  "author": "",
+  "author": "Namlook",
   "dependencies": {
     "eurekapi": "namlook/eurekapi"
   },
