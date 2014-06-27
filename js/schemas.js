@@ -1,5 +1,10 @@
+
+var editAction = {name: 'edit'};
+var deleteAction = {name: 'delete'};
+
 module.exports = {
     Basic: {
+        actions: [editAction, deleteAction],
         schema: {
             title: {
                 type: 'string'
@@ -14,6 +19,11 @@ module.exports = {
     },
     Literal: {
         __title__: {bindTo: 'string'},
+        actions: [
+            editAction,
+            deleteAction,
+            {name: 'toggleBoolean', label: 'toggle boolean'}
+        ],
         schema: {
             string: {
                 type: 'string',
@@ -71,6 +81,7 @@ module.exports = {
         }
     },
     CustomTemplate: {
+        actions: [editAction, deleteAction],
         schema: {
             title: {
                 type: 'string'
@@ -91,12 +102,13 @@ module.exports = {
         //     title: {bindTo: 'string'},
         //     description: {template: '--{{string}}--'}
         // },
-        // search: {
-        //     field: 'string',
-        //     placeholder: 'search a multi...',
-        //     sortBy: 'float',
-        //     orderBy: 'desc'
-        // },
+        // actions: [{
+        //     name: 'edit',
+        //     labels: {en: 'edit', fr: 'modifier'}
+        // }, {
+        //     name: 'delete',
+        //     labels: {en: 'delete', fr: 'supprimer'}
+        // }],
         schema: {
             title: {
                 type: 'string'

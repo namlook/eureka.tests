@@ -17,7 +17,7 @@ describe('Literal', function() {
         });
     });
 
-    it('disaply a new literal form', function(done) {
+    it('display a new literal form', function(done) {
         visit("/literal");
         andThen(function() {
             click('.model-to-new.literal');
@@ -165,7 +165,7 @@ describe('Literal', function() {
 
         andThen(function() {
             equal(find('.eureka-document-title.basic:contains("basic title")').length, 1, 'display the basic title');
-            click('.model-to-edit.basic');
+            click('.eureka-edit-action.basic');
         });
 
         andThen(function() {
@@ -242,6 +242,33 @@ describe('Literal', function() {
             }, 500);
         });
 
+    });
+
+    it('custom simple action', function(done) {
+        var model = App.db.Literal.get('model');
+        var strings = ['literal string 1', 'literal string 2',  'literal hello'];
+
+        Ember.RSVP.all(strings.map(function(string) {
+            return model.create({content: {string: string, integer: 40, boolean: false}}).save();
+        })).then(function() {
+            visit('/literal');
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 3, "We have now 3 results");
+                click('.eureka-result-item .model-to-display:eq(1)');
+            });
+
+            andThen(function() {
+                equal(find('.eureka-field-value:eq(1)').text().trim(), 'false', "The boolean value is false");
+                equal(find('.eureka-toggle-boolean-action.literal').text().trim(), 'toggle boolean', "The action has a label");
+                click('.eureka-toggle-boolean-action.literal');
+            });
+
+            andThen(function() {
+                equal(find('.eureka-field-value:eq(1)').text().trim(), 'true', "The boolean value is false");
+                done();
+            });
+        });
     });
 
 });

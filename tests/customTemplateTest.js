@@ -53,7 +53,7 @@ describe('CustomTemplate', function() {
                 equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "boolean", "The third field is 'boolean'");
                 equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-value').text().trim(), "boolean oh yeah baby !!", "the boolean is customized");
 
-                click('.model-to-edit.custom-template');
+                click('.eureka-edit-action.custom-template');
                 andThen(function() {
                     equal(find('.document').text().trim(), "This is a custom template. The model Hello World cannot be edited even with custom Hello World", "Display the custom template form");
                     equal(find('.ctrl-field').text().trim(), "Hello World from controller", "Display the custom controller field");

@@ -122,4 +122,31 @@ describe('Basic', function() {
 
         });
     });
+
+    it('delete a basic', function(done) {
+        var model = App.db.Basic.get('model');
+        var titles = ['basic title 1', 'basic title 2',  'basic hello'];
+
+        Ember.RSVP.all(titles.map(function(title) {
+            return model.create({content: {title: title, integer: 40}}).save();
+        })).then(function() {
+            visit('/basic');
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 3, "We have now 3 results");
+                click('.eureka-result-item .model-to-display:eq(1)');
+            });
+
+            andThen(function() {
+                equal(currentPath(), 'generic_model.display', 'the item is displayed');
+                click('.eureka-delete-action.basic');
+            });
+
+            andThen(function() {
+                equal(currentPath(), 'generic_model.list', "we're back to the list");
+                equal(find('.eureka-result-item').length, 2, "We have now only 2 results");
+                done();
+            });
+        });
+    });
 });

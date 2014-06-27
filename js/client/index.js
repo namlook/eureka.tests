@@ -10,13 +10,15 @@ App = EurekaTest = Eurekapp({
 // Custom router
 // overload custom_template.edit route
 EurekaTest.Router.map(function() {
-   this.resource('custom_template', function(){
-        this.route('edit', {path: '/:modelType/:id/edit'});
+    this.resource('custom_template', function(){
+        this.route('edit', {path: '/:id/edit'});
    });
 });
 
+
 EurekaTest.CustomTemplateEditRoute = EurekaTest.GenericModelEditRoute.extend({
     model: function(params) {
+        params.modelType = 'CustomTemplate';
         var model = this._super(params);
         model.then(function(model) {
             model.set('routeField', 'hi!');
@@ -41,10 +43,23 @@ EurekaTest.CustomTemplateEditController = EurekaTest.GenericModelEditController.
     }.property('model.title')
 });
 
+
+// custom action
+EurekaTest.LiteralDisplayController = EurekaTest.GenericModelDisplayController.extend({
+    actions: {
+        toggleBoolean: function() {
+            var model = this.get('model');
+            model.toggleProperty('boolean');
+            var _this = this;
+            model.save().then(function(newModel) {
+                _this.set('model', newModel);
+            });
+        }
+    }
+});
+
+
 /*
-
-
-
 // overide the IndexRoute
 EurekaTest.IndexRoute = EurekaTest.IndexRoute.extend({
    model: function() {
