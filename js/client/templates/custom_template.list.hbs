@@ -1,9 +1,11 @@
 
 <h1 class="custom-title">This is the custom list</h1>
 
+{{#model-to 'new' model}}create{{/model-to}}
+
 {{#each item in model}}
     <div class="item">
-        {{#model-to 'display' item classNames="item-title"}}
+        {{#model-to 'display' item item._id classNames="item-title"}}
             {{item.title}}{{#if item.boolean}} !!{{/if}}
         {{/model-to}}
         <p class="item-description">--{{item.description}}:{{item.customField}}--</p>
