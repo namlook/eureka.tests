@@ -17,14 +17,18 @@ var server = new Eurekapi({
 
     // custom root to allow the client to drop the db
     customRoutes: [
-        {method: 'delete', url: '/', func: function(req, res) {
-            req.db.clear(function(err){
-                if (err) {
-                    return res.json(500, {status: 'fail'});
-                }
-                return res.json(200, {status: 'ok'});
-            });
-        }}
+        {
+            method: 'delete',
+            url: '/',
+            func: function(req, res) {
+                req.db.clear(function(err){
+                    if (err) {
+                        return res.json(500, {status: 'fail'});
+                    }
+                    return res.json(200, {status: 'ok'});
+                });
+            }
+        }
     ]
 });
 server.start();
