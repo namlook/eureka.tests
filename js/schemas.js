@@ -22,8 +22,15 @@ module.exports = {
         actions: [
             editAction,
             deleteAction,
-            {name: 'divideFloatBy2', label: 'float/2'},
-            {name: 'toggleBoolean', label: 'toggle boolean'}
+            {name: 'divideFloatBy2', label: 'float/2', secondary: true},
+            {
+                name: 'toggleBoolean',
+                field: 'boolean',
+                toggle: {
+                    false: {label: 'check boolean', icon: 'glyphicon glyphicon-unchecked'},
+                    true:  {label: 'uncheck boolean', icon: 'glyphicon glyphicon-check'},
+                }
+            }
         ],
         schema: {
             string: {

@@ -259,11 +259,11 @@ describe('Literal', function() {
             });
 
             andThen(function() {
-                equal(find('.eureka-field-value:eq(1)').text().trim(), 'false', "The boolean value is false");
-                equal(find('.eureka-action.literal:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
-                equal(find('.eureka-action:eq(0) i.glyphicon').length, 1, "The edit action should have an icon");
-                equal(find('.eureka-action.literal:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
-                equal(find('.eureka-action.literal:eq(2)').text().trim(), 'float/2', "The third action's label should be float/2");
+                equal(find('.eureka-action.eureka-main-action.literal:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
+                equal(find('.eureka-action.eureka-main-action:eq(0) i.glyphicon').length, 1, "The edit action should have an icon");
+                equal(find('.eureka-action.eureka-main-action.literal:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
+                equal(find('.eureka-action.eureka-main-action.literal:eq(2)').text().trim(), 'check boolean', "The third action's label should be check boolean");
+                equal(find('.eureka-action.eureka-secondary-action.literal:eq(0)').text().trim(), 'float/2', "The third action's label should be float/2");
 
                 equal(find('.eureka-float-field .eureka-field-value').text().trim(), '28', "The float value is 28");
                 click('.eureka-divide-float-by2-action.literal');
@@ -271,13 +271,16 @@ describe('Literal', function() {
 
             andThen(function() {
                 equal(find('.eureka-float-field .eureka-field-value').text().trim(), '14', "The float value is now 14");
-                // equal(find('.eureka-field-value:eq(1)').text().trim(), 'true', "The boolean value is false");
-                equal(find('.eureka-action.literal:eq(3)').text().trim(), 'toggle boolean', "The third action's label should be toggle boolean");
-                equal(find('.eureka-toggle-boolean-action.literal').text().trim(), 'toggle boolean', "The action has a label");
-                // click('.eureka-toggle-boolean-action.literal');
+
+                equal(find('.eureka-boolean-field .eureka-field-value').text().trim(), 'false', "The boolean value is false");
+                equal(find('.eureka-toggle-boolean-action.literal .glyphicon.glyphicon-unchecked').length, 1, "toggleBoolean action's icon should be unchecked");
+                click('.eureka-toggle-boolean-action.literal');
             });
 
             andThen(function() {
+                equal(find('.eureka-boolean-field .eureka-field-value').text().trim(), 'true', "The boolean value is true");
+                equal(find('.eureka-action.eureka-main-action.literal:eq(2)').text().trim(), 'uncheck boolean', "The third action's label should now be uncheck boolean");
+                equal(find('.eureka-toggle-boolean-action.literal .glyphicon.glyphicon-check').length, 1, "toggleBoolean action's icon should be checked");
                 done();
             });
         });
