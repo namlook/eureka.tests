@@ -47,6 +47,14 @@ EurekaTest.CustomTemplateEditController = EurekaTest.GenericModelEditController.
 // custom action
 EurekaTest.LiteralDisplayController = EurekaTest.GenericModelDisplayController.extend({
     actions: {
+        divideFloatBy2: function() {
+            var model = this.get('model');
+            model.set('float', model.get('float')/2);
+            var _this = this;
+            model.save().then(function(newModel) {
+                _this.set('model', newModel);
+            });
+        },
         toggleBoolean: function() {
             var model = this.get('model');
             model.toggleProperty('boolean');

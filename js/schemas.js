@@ -22,6 +22,7 @@ module.exports = {
         actions: [
             editAction,
             deleteAction,
+            {name: 'divideFloatBy2', label: 'float/2'},
             {name: 'toggleBoolean', label: 'toggle boolean'}
         ],
         schema: {

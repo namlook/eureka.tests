@@ -249,7 +249,7 @@ describe('Literal', function() {
         var strings = ['literal string 1', 'literal string 2',  'literal hello'];
 
         Ember.RSVP.all(strings.map(function(string) {
-            return model.create({content: {string: string, integer: 40, boolean: false}}).save();
+            return model.create({content: {string: string, integer: 40, float: 28, boolean: false}}).save();
         })).then(function() {
             visit('/literal');
 
@@ -263,13 +263,21 @@ describe('Literal', function() {
                 equal(find('.eureka-action.literal:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
                 equal(find('.eureka-action:eq(0) i.glyphicon').length, 1, "The edit action should have an icon");
                 equal(find('.eureka-action.literal:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
-                equal(find('.eureka-action.literal:eq(2)').text().trim(), 'toggle boolean', "The third action's label should be toggle boolean");
-                equal(find('.eureka-toggle-boolean-action.literal').text().trim(), 'toggle boolean', "The action has a label");
-                click('.eureka-toggle-boolean-action.literal');
+                equal(find('.eureka-action.literal:eq(2)').text().trim(), 'float/2', "The third action's label should be float/2");
+
+                equal(find('.eureka-float-field .eureka-field-value').text().trim(), '28', "The float value is 28");
+                click('.eureka-divide-float-by2-action.literal');
             });
 
             andThen(function() {
-                equal(find('.eureka-field-value:eq(1)').text().trim(), 'true', "The boolean value is false");
+                equal(find('.eureka-float-field .eureka-field-value').text().trim(), '14', "The float value is now 14");
+                // equal(find('.eureka-field-value:eq(1)').text().trim(), 'true', "The boolean value is false");
+                equal(find('.eureka-action.literal:eq(3)').text().trim(), 'toggle boolean', "The third action's label should be toggle boolean");
+                equal(find('.eureka-toggle-boolean-action.literal').text().trim(), 'toggle boolean', "The action has a label");
+                // click('.eureka-toggle-boolean-action.literal');
+            });
+
+            andThen(function() {
                 done();
             });
         });
