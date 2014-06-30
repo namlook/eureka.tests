@@ -1,6 +1,6 @@
 
-var editAction = {name: 'edit'};
-var deleteAction = {name: 'delete'};
+var editAction = {name: 'edit', icon: 'glyphicon glyphicon-pencil'};
+var deleteAction = {name: 'delete', icon: 'glyphicon glyphicon-trash'};
 
 module.exports = {
     Basic: {

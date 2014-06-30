@@ -260,6 +260,10 @@ describe('Literal', function() {
 
             andThen(function() {
                 equal(find('.eureka-field-value:eq(1)').text().trim(), 'false', "The boolean value is false");
+                equal(find('.eureka-action.literal:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
+                equal(find('.eureka-action:eq(0) i.glyphicon').length, 1, "The edit action should have an icon");
+                equal(find('.eureka-action.literal:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
+                equal(find('.eureka-action.literal:eq(2)').text().trim(), 'toggle boolean', "The third action's label should be toggle boolean");
                 equal(find('.eureka-toggle-boolean-action.literal').text().trim(), 'toggle boolean', "The action has a label");
                 click('.eureka-toggle-boolean-action.literal');
             });
