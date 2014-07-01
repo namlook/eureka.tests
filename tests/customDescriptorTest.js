@@ -102,22 +102,20 @@ describe('CustomDescriptor', function() {
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 3, "We have now 3 results");
-                equal(find('.eureka-simple-query').attr('placeholder'), 'search a really custom object...', "the placeholder should be set");
-                fillIn('.eureka-simple-query', 'custom title');
+                equal(find('.eureka-search-query-input').attr('placeholder'), 'search a really custom object...', "the placeholder should be set");
+                fillIn('.eureka-search-query-input', 'custom title');
+                $('.eureka-search-query-input').focusout(); // trigger the search
             });
 
             andThen(function() {
-                Ember.run.later(function(){
-                    equal(find('.eureka-result-item').length, 2, "We have now 2 results");
-                    fillIn('.eureka-simple-query', 'custom title 1');
-                }, 300);
+                equal(find('.eureka-result-item').length, 2, "We have now 2 results");
+                fillIn('.eureka-search-query-input', 'custom title 1');
+                $('.eureka-search-query-input').focusout(); // trigger the search
             });
 
             andThen(function() {
-                Ember.run.later(function(){
-                    equal(find('.eureka-result-item').length, 1, "We have now 1 results");
-                    done();
-                }, 300);
+                equal(find('.eureka-result-item').length, 1, "We have now 1 results");
+                done();
             });
         });
     });

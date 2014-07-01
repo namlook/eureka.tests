@@ -103,21 +103,19 @@ describe('Basic', function() {
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 3, "We have now 3 results");
-                fillIn('.eureka-simple-query', 'basic t');
+                fillIn('.eureka-search-query-input', 'basic t');
+                $('.eureka-search-query-input').focusout(); // trigger the search
             });
 
             andThen(function() {
-                Ember.run.later(function(){
-                    equal(find('.eureka-result-item').length, 2, "We have now 2 results");
-                    fillIn('.eureka-simple-query', 'basic title 1');
-                }, 700);
+                equal(find('.eureka-result-item').length, 2, "We have now 2 results");
+                fillIn('.eureka-search-query-input', 'basic title 1');
+                $('.eureka-search-query-input').focusout(); // trigger the search
             });
 
             andThen(function() {
-                Ember.run.later(function(){
-                    equal(find('.eureka-result-item').length, 1, "We have now 1 results");
-                    done();
-                }, 700);
+                equal(find('.eureka-result-item').length, 1, "We have now 1 results");
+                done();
             });
 
         });
@@ -139,7 +137,32 @@ describe('Basic', function() {
 
             andThen(function() {
                 equal(currentPath(), 'generic_model.display', 'the item is displayed');
+
+                // for whatever reason, the find helper cannot fetch alertify markup
+                // which is added to the dom later. So let's fall back to jQuery instead:
+                equal($('.alertify').length, 0, 'the dialog is not triggered yet');
                 click('.eureka-delete-action.basic');
+            });
+
+
+            andThen(function() {
+                equal($('.alertify').length, 1, 'the dialog is triggered');
+                equal($('.alertify.alertify-confirm').length, 1, 'the confirm box is visible (1)');
+                equal($('.alertify-message').text().trim(), "Are you sure you want to delete this document ?", "the confirm message is displayed (1)");
+                $('.alertify-button.alertify-button-cancel').click();
+            });
+
+            andThen(function() {
+                equal(currentPath(), 'generic_model.display', 'we are still on the document page');
+                equal($('.alertify.alertify-hide.alertify-hidden').length, 1, 'the dialog is hidden');
+                $('.eureka-delete-action.basic').click();
+            });
+
+            andThen(function() {
+                equal($('.alertify.alertify-hide.alertify-hidden').length, 0, 'the dialog is not hidden anymore');
+                equal($('.alertify.alertify-confirm').length, 1, 'the confirm box is visible (2)');
+                equal($('.alertify-message').text().trim(), "Are you sure you want to delete this document ?", "the confirm message is displayed (2)");
+                $('.alertify-button.alertify-button-ok').click();
             });
 
             andThen(function() {

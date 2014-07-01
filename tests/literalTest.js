@@ -244,6 +244,52 @@ describe('Literal', function() {
 
     });
 
+    it('advanced search', function() {
+        var model = App.db.Literal.get('model');
+        var strings = ['literal string 1', 'literal string 2',  'literal hello', 'literal hello kitty'];
+
+        Ember.RSVP.all(strings.map(function(string, index) {
+            return model.create({content: {
+                string: string,
+                integer: 40%(index+4),
+                float: 28%(index+2),
+                boolean: false,
+                basic: {
+                    _id: 'basic'+index%2,
+                    title: 'basic title '+index%2,
+                    thumb: 'http://placekitten.com/15'+index+'/15'+index
+                }
+            }}).save();
+        })).then(function() {
+            visit('/literal');
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 4, "We have 4 results");
+                fillIn('.eureka-search-query-input', 'basic.title = basic title 1');
+                $('.eureka-search-query-input').focusout(); // trigger the search
+            });
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 2, "We have now 2 results");
+                var items = find('.eureka-result-item .eureka-item-title');
+                var titles = items.toArray().map(function(i){return $(i).text().trim();}).sort();
+                equal(titles[0], "literal hello kitty");
+                equal(titles[1], "literal string 2");
+                fillIn('.eureka-search-query-input', 'basic.title = basic title 0');
+                $('.eureka-search-query-input').focusout(); // trigger the search
+            });
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 2, "We have now 2 results");
+                var items = find('.eureka-result-item .eureka-item-title');
+                var titles = items.toArray().map(function(i){return $(i).text().trim();}).sort();
+                equal(titles[0], "literal hello");
+                equal(titles[1], "literal string 1");
+            });
+
+        });
+    });
+
     it('custom simple action', function(done) {
         var model = App.db.Literal.get('model');
         var strings = ['literal string 1', 'literal string 2',  'literal hello'];

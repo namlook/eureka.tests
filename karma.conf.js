@@ -15,6 +15,7 @@ module.exports = function(config) {
         "bower_components/typeahead.js/dist/typeahead.bundle.js",
         "bower_components/alertify.js/lib/alertify.js",
         "bower_components/jQuery-Fakecrop/fakecrop/jquery.fakecrop.js",
+        "bower_components/jquery-textcomplete/jquery.textcomplete.js",
         "bower_components/eurekapp/index.js", // TODO move index.js into dist
         "bower_components/eurekapp/dist/templates.js",
 
