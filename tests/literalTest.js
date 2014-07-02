@@ -244,7 +244,7 @@ describe('Literal', function() {
 
     });
 
-    it('advanced search', function() {
+    it('advanced search', function(done) {
         var model = App.db.Literal.get('model');
         var strings = ['literal string 1', 'literal string 2',  'literal hello', 'literal hello kitty'];
 
@@ -257,7 +257,7 @@ describe('Literal', function() {
                 basic: {
                     _id: 'basic'+index%2,
                     title: 'basic title '+index%2,
-                    thumb: 'http://placekitten.com/15'+index+'/15'+index
+                    thumb: 'http://lorempixel.com/15'+index+'/15'+index
                 }
             }}).save();
         })).then(function() {
@@ -285,8 +285,54 @@ describe('Literal', function() {
                 var titles = items.toArray().map(function(i){return $(i).text().trim();}).sort();
                 equal(titles[0], "literal hello");
                 equal(titles[1], "literal string 1");
+                done();
             });
 
+        });
+    });
+
+    it('should sort the results', function(done) {
+        var model = App.db.Literal.get('model');
+        var strings = ['literal string 1', 'literal string 2',  'literal hello', 'literal hello kitty'];
+
+        Ember.RSVP.all(strings.map(function(string, index) {
+            return model.create({content: {
+                string: string,
+                integer: 40%(index+4),
+                float: 28%(index+2),
+                boolean: Boolean(2%index),
+                basic: {
+                    _id: 'basic'+index%2,
+                    title: 'basic title '+index%2,
+                    thumb: 'http://lorempixel.com/15'+index+'/15'+index+'/nature/'+index
+                }
+            }}).save();
+        })).then(function() {
+            visit('/literal');
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 4, "It should have 4 items");
+                equal(find('select').val(), 'boolean,-integer');
+                var items = find('.eureka-result-item .eureka-item-title');
+                var titles = items.toArray().map(function(i){return $(i).text().trim();});
+                equal(titles[0], "literal hello");
+                equal(titles[1], "literal string 1", "the second item should be literal string 1");
+                equal(titles[2], "literal string 2");
+                equal(titles[3], "literal hello kitty", 'the last item is literal hello kitty');
+                $('select').val('string').change();
+            });
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 4, "It should have 4 items");
+                equal(find('select').val(), 'string');
+                var items = find('.eureka-result-item .eureka-item-title');
+                var titles = items.toArray().map(function(i){return $(i).text().trim();});
+                equal(titles[0], "literal hello");
+                equal(titles[1], "literal hello kitty", "the second item is literal hello kitty");
+                equal(titles[2], "literal string 1");
+                equal(titles[3], "literal string 2");
+                done();
+            });
         });
     });
 

@@ -32,6 +32,10 @@ module.exports = {
                 }
             }
         ],
+        sortBy: [
+            {label: 'String', order: 'string'},
+            {label: 'Boolean (asc) and Integer (desc)', order: 'boolean,-integer', default: true}
+        ],
         schema: {
             string: {
                 type: 'string',
@@ -62,10 +66,9 @@ module.exports = {
         __thumb__: {template: "http://placekitten.com/{{integer}}/{{integer}}"},
         search: {
             field: 'string',
-            placeholder: 'search a really custom object...',
-            advancedPlaceholder: 'integer > 15 && boolean = true',
-            sortBy: '-integer,float'
+            placeholder: 'search a really custom object...'
         },
+        sortBy: '-integer,float',
         title: 'really custom descriptor',
         schema: {
             string: {

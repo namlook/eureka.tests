@@ -6,63 +6,69 @@ App = EurekaTest = Eurekapp({
     schemas: require('../schemas')
 });
 
+App.initializer({
+    name: 'custom',
 
-// Custom router
-// overload custom_template.edit route
-EurekaTest.Router.map(function() {
-    this.resource('custom_template', function(){
-        this.route('edit', {path: '/:id/edit'});
-   });
-});
-
-
-EurekaTest.CustomTemplateEditRoute = EurekaTest.GenericModelEditRoute.extend({
-    model: function(params) {
-        params.modelType = 'CustomTemplate';
-        var model = this._super(params);
-        model.then(function(model) {
-            model.set('routeField', 'hi!');
+    initialize: function(container, application) {
+        // Custom router
+        // overload custom_template.edit route
+        application.Router.map(function() {
+            this.resource('custom_template', function(){
+                this.route('edit', {path: '/:id/edit'});
+           });
         });
-        return model;
-    }
-});
 
 
-// custom model
-EurekaTest.CustomTemplateModel = EurekaTest.Model.extend({
-    customField: function() {
-        return "custom "+this.get('title');
-    }.property('title')
-});
+        application.CustomTemplateEditRoute = application.GenericModelEditRoute.extend({
+            model: function(params) {
+                params.modelType = 'CustomTemplate';
+                var model = this._super(params);
+                model.then(function(model) {
+                    model.set('routeField', 'hi!');
+                });
+                return model;
+            }
+        });
 
 
-// custom controller: overload GenericModelEditController
-EurekaTest.CustomTemplateEditController = EurekaTest.GenericModelEditController.extend({
-    ctrlField: function() {
-        return this.get('model.title')+' from controller';
-    }.property('model.title')
-});
+        // custom model
+        application.CustomTemplateModel = application.Model.extend({
+            customField: function() {
+                return "custom "+this.get('title');
+            }.property('title')
+        });
 
 
-// custom action
-EurekaTest.LiteralDisplayController = EurekaTest.GenericModelDisplayController.extend({
-    actions: {
-        divideFloatBy2: function() {
-            var model = this.get('model');
-            model.set('float', model.get('float')/2);
-            var _this = this;
-            model.save().then(function(newModel) {
-                _this.set('model', newModel);
-            });
-        },
-        toggleBoolean: function() {
-            var model = this.get('model');
-            model.toggleProperty('boolean');
-            var _this = this;
-            model.save().then(function(newModel) {
-                _this.set('model', newModel);
-            });
-        }
+        // custom controller: overload GenericModelEditController
+        application.CustomTemplateEditController.reopen({
+            ctrlField: function() {
+                return this.get('model.title')+' from controller';
+            }.property('model.title')
+        });
+
+
+        // custom action
+        application.LiteralDisplayController.reopen({
+            actions: {
+                divideFloatBy2: function() {
+                    var model = this.get('model');
+                    model.set('float', model.get('float')/2);
+                    var _this = this;
+                    model.save().then(function(newModel) {
+                        _this.set('model', newModel);
+                    });
+                },
+                toggleBoolean: function() {
+                    var model = this.get('model');
+                    model.toggleProperty('boolean');
+                    var _this = this;
+                    model.save().then(function(newModel) {
+                        _this.set('model', newModel);
+                    });
+                }
+            }
+        });
+
     }
 });
 
