@@ -3,7 +3,7 @@ var editAction = {name: 'edit', icon: 'glyphicon glyphicon-pencil'};
 var deleteAction = {name: 'delete', icon: 'glyphicon glyphicon-trash'};
 
 module.exports = {
-    Basic: {
+    BasicObject: {
         actions: [editAction, deleteAction],
         schema: {
             title: {
@@ -19,6 +19,7 @@ module.exports = {
     },
     Literal: {
         __title__: {bindTo: 'string'},
+        __description__: {template: 'bool is {{#if boolean}}yes{{else}}no{{/if}} with integer {{integer}}'},
         actions: [
             editAction,
             deleteAction,
@@ -35,6 +36,10 @@ module.exports = {
         sortBy: [
             {label: 'String', order: 'string'},
             {label: 'Boolean (asc) and Integer (desc)', order: 'boolean,-integer', default: true}
+        ],
+        filters: [
+            {route: 'literal.truthy', label: 'Truthy', icon: 'glyphicon glyphicon-ok'},
+            {route: 'literal.falsy', label: 'Falsy', icon: 'glyphicon glyphicon-remove'}
         ],
         schema: {
             string: {
@@ -56,7 +61,7 @@ module.exports = {
                 type: 'date'
             },
             basic: {
-                type: 'Basic'
+                type: 'BasicObject'
             }
         }
     },
@@ -142,7 +147,7 @@ module.exports = {
                 multi: true
             },
             basic: {
-                type: 'Basic',
+                type: 'BasicObject',
                 multi: true
             },
             literal: {

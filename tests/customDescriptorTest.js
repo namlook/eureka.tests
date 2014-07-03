@@ -42,7 +42,7 @@ describe('CustomDescriptor', function() {
 
                 click('.eureka-result-item .eureka-item-title a:contains("Hello World (3.14)")');
                 andThen(function() {
-                    equal(currentPath(), 'generic_model.display');
+                    equal(currentPath(), 'custom_descriptor.display');
                     equal(find('.eureka-document-title:contains("Hello World (3.14)")').length, 1, "The document should have the correct title");
                     equal(find('.eureka-document-description:contains("142 persons")').length, 1, "The document should have the correct description");
                     equal(find('.eureka-document-thumb').attr('src'), "http://placekitten.com/142/142", "The document should have the correct thumb url");
@@ -76,7 +76,7 @@ describe('CustomDescriptor', function() {
 
                 click('.eureka-result-item .eureka-item-title a:contains("Hello World (3.14)")');
                 andThen(function() {
-                    equal(currentPath(), 'generic_model.display');
+                    equal(currentPath(), 'custom_descriptor.display');
                     equal(find('.eureka-document-title:contains("Hello World (3.14)")').length, 1, "The document should have the correct title");
                     equal(find('.eureka-document-description:contains("no one")').length, 1, "The document should have the correct description");
                     equal(find('.eureka-document-thumb').attr('src'), "http://placekitten.com/142/142", "The document should have the correct thumb url");

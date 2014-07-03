@@ -18,16 +18,16 @@ describe('Basic', function() {
 
 
     it('New basic form', function() {
-        visit("/basic");
+        visit("/basic_object");
 
         andThen(function() {
-            click('.model-to-new.basic');
+            click('.eureka-link-to-new.eureka-basic-object-model');
         });
 
         andThen(function() {
-            equal(currentURL(), '/basic/new', "The formular is displayed");
+            equal(currentURL(), '/basic_object/new', "The formular is displayed");
 
-            equal(find('.eureka-new-document-title').text(), "New Basic", "The title form is rendered");
+            equal(find('.eureka-new-document-title').text(), "New BasicObject", "The title form is rendered");
 
             equal(find('.eureka-field:eq(0) .eureka-field-name').text(), "title", "The first field name is 'title'");
             equal(find('.eureka-field:eq(0) .eureka-field-input').attr('type'), "text", "A title is a text input");
@@ -49,7 +49,7 @@ describe('Basic', function() {
         andThen(function() {
             equal(find('.eureka-result-item').length, 0, "No result yet");
 
-            visit('/basic/new');
+            visit('/basic_object/new');
         });
 
         andThen(function() {
@@ -63,12 +63,12 @@ describe('Basic', function() {
         });
 
         andThen(function() {
-            click('.eureka-save-action.basic');
+            click('.eureka-save-action.eureka-basic-object-model');
         });
 
 
         andThen(function() {
-            equal(currentURL(), '/basic', 'We go back to the basics list');
+            equal(currentURL(), '/basic_object', 'We go back to the basics list');
             equal(find('.eureka-result-item').length, 1, "We have now 1 result");
 
             equal(find('.eureka-result-item .eureka-item-title > a').text().trim(), 'The big title', "The result has a correct title");
@@ -78,7 +78,7 @@ describe('Basic', function() {
             click('.eureka-result-item:eq(0) .eureka-item-title a');
         });
         andThen(function() {
-            equal(currentPath(), 'generic_model.display');
+            equal(currentPath(), 'basic_object.display');
             equal(find('.eureka-document-title:contains("The big title")').length, 1, "The document should have the correct title");
 
             equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "title", "the first field name is 'title'");
@@ -93,13 +93,13 @@ describe('Basic', function() {
     });
 
     it('Simple search basic', function(done) {
-        var model = App.db.Basic.get('model');
+        var model = App.db.BasicObject.get('model');
         var titles = ['basic title 1', 'basic title 2',  'basic hello'];
 
         Ember.RSVP.all(titles.map(function(title) {
             return model.create({content: {title: title, integer: 40}}).save();
         })).then(function() {
-            visit('/basic');
+            visit('/basic_object');
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 3, "We have now 3 results");
@@ -122,26 +122,26 @@ describe('Basic', function() {
     });
 
     it('delete a basic', function(done) {
-        var model = App.db.Basic.get('model');
+        var model = App.db.BasicObject.get('model');
         var titles = ['basic title 1', 'basic title 2',  'basic hello'];
 
         Ember.RSVP.all(titles.map(function(title) {
             return model.create({content: {title: title, integer: 40}}).save();
         })).then(function() {
-            visit('/basic');
+            visit('/basic_object');
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 3, "We have now 3 results");
-                click('.eureka-result-item .model-to-display:eq(1)');
+                click('.eureka-result-item .eureka-link-to-display:eq(1)');
             });
 
             andThen(function() {
-                equal(currentPath(), 'generic_model.display', 'the item is displayed');
+                equal(currentPath(), 'basic_object.display', 'the item is displayed');
 
                 // for whatever reason, the find helper cannot fetch alertify markup
                 // which is added to the dom later. So let's fall back to jQuery instead:
                 equal($('.alertify').length, 0, 'the dialog is not triggered yet');
-                click('.eureka-delete-action.basic');
+                click('.eureka-delete-action.eureka-basic-object-model');
             });
 
 
@@ -153,9 +153,9 @@ describe('Basic', function() {
             });
 
             andThen(function() {
-                equal(currentPath(), 'generic_model.display', 'we are still on the document page');
+                equal(currentPath(), 'basic_object.display', 'we are still on the document page');
                 equal($('.alertify.alertify-hide.alertify-hidden').length, 1, 'the dialog is hidden');
-                $('.eureka-delete-action.basic').click();
+                $('.eureka-delete-action.eureka-basic-object-model').click();
             });
 
             andThen(function() {
@@ -166,7 +166,7 @@ describe('Basic', function() {
             });
 
             andThen(function() {
-                equal(currentPath(), 'generic_model.list', "we're back to the list");
+                equal(currentPath(), 'basic_object.index', "we're back to the list");
                 equal(find('.eureka-result-item').length, 2, "We have now only 2 results");
                 done();
             });

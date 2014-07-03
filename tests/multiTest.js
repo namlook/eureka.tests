@@ -19,7 +19,7 @@ describe('Multi', function() {
 
     it('Display Multi form', function(done) {
         visit("/multi");
-        click('.model-to-new.multi');
+        click('.eureka-link-to-new.eureka-multi-model');
 
         andThen(function() {
             equal(currentURL(), '/multi/new', "The formular is displayed");
@@ -95,7 +95,7 @@ describe('Multi', function() {
 
                     click('.eureka-result-item:eq(0) .eureka-item-title a');
                     andThen(function() {
-                        equal(currentPath(), 'generic_model.display');
+                        equal(currentPath(), 'multi.display');
                         equal(find('.eureka-document-title:contains("The big title")').length, 1, "The document should have the correct title");
 
                         equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "title", "the first field name is 'title'");

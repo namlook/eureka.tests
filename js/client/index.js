@@ -16,17 +16,36 @@ App.initializer({
             this.resource('custom_template', function(){
                 this.route('edit', {path: '/:id/edit'});
            });
+            this.resource('literal', function() {
+                this.route('truthy', {path: '/truthy'});
+                this.route('falsy', {path: '/falsy'});
+            });
         });
 
 
         application.CustomTemplateEditRoute = application.GenericModelEditRoute.extend({
             model: function(params) {
-                params.modelType = 'CustomTemplate';
                 var model = this._super(params);
                 model.then(function(model) {
                     model.set('routeField', 'hi!');
                 });
                 return model;
+            }
+        });
+
+
+        application.LiteralTruthyRoute = application.GenericModelIndexRoute.extend({
+            model: function(params) {
+                params.query = {boolean: true};
+                return this._super(params);
+            }
+        });
+
+
+        application.LiteralFalsyRoute = application.GenericModelIndexRoute.extend({
+            model: function(params) {
+                params.query = {boolean: false};
+                return this._super(params);
             }
         });
 

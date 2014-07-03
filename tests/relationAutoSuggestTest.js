@@ -1,5 +1,6 @@
 
 var expect = chai.expect;
+var equal = chai.assert.equal;
 
 describe("Test relation auto-suggest", function() {
 
@@ -18,7 +19,7 @@ describe("Test relation auto-suggest", function() {
 
 
     it('Test single relations auto-suggest', function(done) {
-        App.db.Basic.get('model').create({content: {
+        App.db.BasicObject.get('model').create({content: {
             title: 'basic title',
             description: 'basic description',
             thumb: 'http://placekitten.com/167/167'
@@ -36,14 +37,14 @@ describe("Test relation auto-suggest", function() {
                 find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic');
 
                 Ember.run.later(function(){
-                    expect(find('.tt-suggestion').length).to.be.equal(2);
+                    equal(find('.tt-suggestion').length, 2, 'there are two suggestions');
                     expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title');
-                    expect(find('.tt-suggestion:eq(1):contains("create new Basic")').length).to.be.equal(1);
+                    equal(find('.tt-suggestion:eq(1):contains("create new BasicObject")').length, 1, 'create new Basic is present');
 
                     $('.tt-suggestion:eq(0)').click();
 
                     andThen(function() {
-                        expect(find('.eureka-selected-relation.basic:contains("basic title")').length).to.be.equal(1);
+                        equal(find('.eureka-selected-relation.basic:contains("basic title")').length, 1, 'the model is selected');
                         done();
                     });
                 }, 500);
@@ -53,14 +54,14 @@ describe("Test relation auto-suggest", function() {
 
 
     it('Test multi relations auto-suggest', function(done) {
-        App.db.Basic.get('model').create({content: {
+        App.db.BasicObject.get('model').create({content: {
             title: 'basic title 1',
             description: 'basic description 1',
             thumb: 'http://placekitten.com/167/167'
         }}).save();
 
 
-        App.db.Basic.get('model').create({content: {
+        App.db.BasicObject.get('model').create({content: {
             title: 'basic title 2',
             description: 'basic description 2',
             thumb: 'http://placekitten.com/170/170'
@@ -68,7 +69,7 @@ describe("Test relation auto-suggest", function() {
 
         andThen(function() {
             expect(13);
-            visit('/basic');
+            visit('/basic_object');
             visit('/multi/new');
 
             fillIn('.eureka-field-input[name=basic]', 'basic ti');
@@ -90,13 +91,13 @@ describe("Test relation auto-suggest", function() {
 
                     Ember.run.later(function(){
                         andThen(function() {
-                            expect(find('.eureka-selected-relation').length).to.be.equal(1);
+                            equal(find('.eureka-selected-relation').length, 1, 'there is one selected relation');
                             expect(find('.eureka-selected-relation.basic:eq(0):contains("basic title 1")').length).to.be.equal(1);
 
                             find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic ti');
 
                             Ember.run.later(function(){
-                                expect(find('.tt-suggestion').length).to.be.equal(3);
+                                equal(find('.tt-suggestion').length, 3, 'there are three suggestions');
                                 expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title 1');
                                 expect(find('.tt-suggestion:eq(1)').text()).to.be.equal('basic title 2');
                                 expect(find('.tt-suggestion:eq(2):contains("create new Basic")').length).to.be.equal(1);
@@ -104,7 +105,7 @@ describe("Test relation auto-suggest", function() {
                                 $('.tt-suggestion:eq(1)').click();
 
                                 andThen(function() {
-                                    expect(find('.eureka-selected-relation').length).to.be.equal(2);
+                                    equal(find('.eureka-selected-relation').length, 2, 'there are two selected relations');
                                     expect(find('.eureka-selected-relation.basic:eq(1):contains("basic title 2")').length).to.be.equal(1);
                                     done();
                                 });

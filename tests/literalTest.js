@@ -20,7 +20,7 @@ describe('Literal', function() {
     it('display a new literal form', function(done) {
         visit("/literal");
         andThen(function() {
-            click('.model-to-new.literal');
+            click('.eureka-link-to-new.eureka-literal-model');
         });
 
         andThen(function() {
@@ -84,13 +84,13 @@ describe('Literal', function() {
                 equal(find('.eureka-result-item').length, 1, "We have now 1 result");
                 equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World', "The result has a correct title");
 
-                equal(find('.eureka-result-item .eureka-item-description').length, 0, "The result has no description");
+                equal(find('.eureka-result-item .eureka-item-description').text().trim(), 'bool is yes with integer 42', "The result has a description");
                 equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
 
                 click('.eureka-result-item .eureka-item-title a:contains("Hello World")');
                 andThen(function() {
-                    equal(currentPath(), 'generic_model.display');
+                    equal(currentPath(), 'literal.display');
                     equal(find('.eureka-document-title:contains("Hello World")').length, 1, "The document should have the correct title");
 
                     equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "string", "the first field name is 'string'");
@@ -116,9 +116,9 @@ describe('Literal', function() {
     });
 
 
-    it('Edit a Basic relation from a Literal', function() {
+    it('Edit a Basic relation from a Literal', function(done) {
         Ember.run(function() {
-            App.db.Basic.get('model').create({content: {
+            App.db.BasicObject.get('model').create({content: {
                 title: 'basic title',
                 description: 'basic description',
                 thumb: 'http://placekitten.com/165/165'
@@ -151,7 +151,7 @@ describe('Literal', function() {
             equal(find('.eureka-result-item').length, 1, "We have now 1 result");
             equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'hello', "The result has a correct title");
 
-            equal(find('.eureka-result-item .eureka-item-description').length, 0, "The result has no description");
+            equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
             equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
             click('.eureka-result-item:eq(0) a');
@@ -164,18 +164,19 @@ describe('Literal', function() {
         });
 
         andThen(function() {
-            equal(find('.eureka-document-title.basic:contains("basic title")').length, 1, 'display the basic title');
-            click('.eureka-edit-action.basic');
+            equal(find('.eureka-document-title.eureka-basic-object-model:contains("basic title")').length, 1, 'display the basic title');
+            click('.eureka-edit-action.eureka-basic-object-model');
         });
 
         andThen(function() {
-            assert.match(currentURL(), /^\/basic\/\w+\/edit/, 'We are editing a basic page');
+            assert.match(currentURL(), /^\/basic_object\/\w+\/edit/, 'We are editing a basic page');
+            done();
         });
     });
 
     it('Create a literal with relation', function(done) {
         this.timeout(3500);
-        App.db.Basic.get('model').create({content: {
+        App.db.BasicObject.get('model').create({content: {
             title: 'basic title',
             description: 'basic description',
             thumb: 'http://placekitten.com/165/165'
@@ -205,14 +206,14 @@ describe('Literal', function() {
                         equal(find('.eureka-result-item').length, 1, "We have now 1 result");
                         equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World', "The result has a correct title");
 
-                        equal(find('.eureka-result-item .eureka-item-description').length, 0, "The result has no description");
+                        equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
                         equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
 
                         click('.eureka-result-item .eureka-item-title a:contains("Hello World")');
 
                         andThen(function() {
-                            equal(currentPath(), 'generic_model.display');
+                            equal(currentPath(), 'literal.display');
                             equal(find('.eureka-document-title:contains("Hello World")').length, 1, "The document should have the correct title");
 
                             equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "string", "the first field name is 'string'");
@@ -298,13 +299,13 @@ describe('Literal', function() {
         Ember.RSVP.all(strings.map(function(string, index) {
             return model.create({content: {
                 string: string,
-                integer: 40%(index+4),
+                integer: 40%(index+2),
                 float: 28%(index+2),
                 boolean: Boolean(2%index),
                 basic: {
                     _id: 'basic'+index%2,
                     title: 'basic title '+index%2,
-                    thumb: 'http://lorempixel.com/15'+index+'/15'+index+'/nature/'+index
+                    thumb: 'http://placehold.it/150x150'
                 }
             }}).save();
         })).then(function() {
@@ -315,9 +316,9 @@ describe('Literal', function() {
                 equal(find('select').val(), 'boolean,-integer');
                 var items = find('.eureka-result-item .eureka-item-title');
                 var titles = items.toArray().map(function(i){return $(i).text().trim();});
-                equal(titles[0], "literal hello");
+                equal(titles[0], "literal string 2");
                 equal(titles[1], "literal string 1", "the second item should be literal string 1");
-                equal(titles[2], "literal string 2");
+                equal(titles[2], "literal hello");
                 equal(titles[3], "literal hello kitty", 'the last item is literal hello kitty');
                 $('select').val('string').change();
             });
@@ -347,32 +348,32 @@ describe('Literal', function() {
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 3, "We have now 3 results");
-                click('.eureka-result-item .model-to-display:eq(1)');
+                click('.eureka-result-item .eureka-link-to-display:eq(1)');
             });
 
             andThen(function() {
-                equal(find('.eureka-action.eureka-main-action.literal:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
+                equal(find('.eureka-action.eureka-main-action.eureka-literal-model:eq(0)').text().trim(), 'edit', "The first action's label should be edit");
                 equal(find('.eureka-action.eureka-main-action:eq(0) i.glyphicon').length, 1, "The edit action should have an icon");
-                equal(find('.eureka-action.eureka-main-action.literal:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
-                equal(find('.eureka-action.eureka-main-action.literal:eq(2)').text().trim(), 'check boolean', "The third action's label should be check boolean");
-                equal(find('.eureka-action.eureka-secondary-action.literal:eq(0)').text().trim(), 'float/2', "The third action's label should be float/2");
+                equal(find('.eureka-action.eureka-main-action.eureka-literal-model:eq(1)').text().trim(), 'delete', "The second action's label should be delete");
+                equal(find('.eureka-action.eureka-main-action.eureka-literal-model:eq(2)').text().trim(), 'check boolean', "The third action's label should be check boolean");
+                equal(find('.eureka-action.eureka-secondary-action.eureka-literal-model:eq(0)').text().trim(), 'float/2', "The third action's label should be float/2");
 
                 equal(find('.eureka-float-field .eureka-field-value').text().trim(), '28', "The float value is 28");
-                click('.eureka-divide-float-by2-action.literal');
+                click('.eureka-divide-float-by2-action.eureka-literal-model');
             });
 
             andThen(function() {
                 equal(find('.eureka-float-field .eureka-field-value').text().trim(), '14', "The float value is now 14");
 
                 equal(find('.eureka-boolean-field .eureka-field-value').text().trim(), 'false', "The boolean value is false");
-                equal(find('.eureka-toggle-boolean-action.literal .glyphicon.glyphicon-unchecked').length, 1, "toggleBoolean action's icon should be unchecked");
-                click('.eureka-toggle-boolean-action.literal');
+                equal(find('.eureka-toggle-boolean-action.eureka-literal-model .glyphicon.glyphicon-unchecked').length, 1, "toggleBoolean action's icon should be unchecked");
+                click('.eureka-toggle-boolean-action.eureka-literal-model');
             });
 
             andThen(function() {
                 equal(find('.eureka-boolean-field .eureka-field-value').text().trim(), 'true', "The boolean value is true");
-                equal(find('.eureka-action.eureka-main-action.literal:eq(2)').text().trim(), 'uncheck boolean', "The third action's label should now be uncheck boolean");
-                equal(find('.eureka-toggle-boolean-action.literal .glyphicon.glyphicon-check').length, 1, "toggleBoolean action's icon should be checked");
+                equal(find('.eureka-action.eureka-main-action.eureka-literal-model:eq(2)').text().trim(), 'uncheck boolean', "The third action's label should now be uncheck boolean");
+                equal(find('.eureka-toggle-boolean-action.eureka-literal-model .glyphicon.glyphicon-check').length, 1, "toggleBoolean action's icon should be checked");
                 done();
             });
         });
