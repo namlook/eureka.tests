@@ -160,5 +160,8 @@ module.exports = {
                 // }
             }
         }
+    },
+    About: {
+        static: true
     }
 };
