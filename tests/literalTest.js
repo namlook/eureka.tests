@@ -206,7 +206,7 @@ describe('Literal', function() {
                         equal(find('.eureka-result-item').length, 1, "We have now 1 result");
                         equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World', "The result has a correct title");
 
-                        equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
+                        equal(find('.eureka-result-item .eureka-item-description').text().trim(), 'bool is yes with integer 42 and a basic title', "The result has a description");
                         equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
 

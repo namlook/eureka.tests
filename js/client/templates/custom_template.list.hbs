@@ -6,8 +6,8 @@
 {{#each item in model}}
     <div class="item">
         {{#link-to item.__meta__.displayRouteName item._id classNames="item-title"}}
-            {{item.title}}{{#if item.boolean}} !!{{/if}}
+            {{item.__title__}}{{#if item.boolean}} !!{{/if}}
         {{/link-to}}
-        <p class="item-description">--{{item.description}}:{{item.customField}}--</p>
+        <p class="item-description">--{{item.__description__}}:{{item.customField}}--</p>
     </div>
 {{/each}}

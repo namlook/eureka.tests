@@ -18,8 +18,9 @@ module.exports = {
         }
     },
     Literal: {
+        populate: 1,
         __title__: {bindTo: 'string'},
-        __description__: {template: 'bool is {{#if boolean}}yes{{else}}no{{/if}} with integer {{integer}}'},
+        __description__: {template: 'bool is {{#if boolean}}yes{{else}}no{{/if}} with integer {{integer}} {{#if basic}}and a {{basic.__title__}}{{/if}}'},
         actions: [
             editAction,
             deleteAction,
