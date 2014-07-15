@@ -6,7 +6,7 @@ describe('homepage', function() {
         visit("/");
 
         andThen(function() {
-            equal(find(".eureka-application-menu .eureka-menu-item").length, 5, "There are five model registered");
+            equal(find(".eureka-application-menu .eureka-menu-item").length, 6, "There are five item in the menu");
             done();
         });
     });
