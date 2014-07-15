@@ -66,6 +66,20 @@ module.exports = {
             }
         }
     },
+    I18n: {
+        actions: [{name: 'edit'}],
+        schema: {
+            title: {
+                type: 'string',
+                i18n: true
+            },
+            multi: {
+                type: 'string',
+                i18n: true,
+                multi: true
+            }
+        }
+    },
     CustomDescriptor: {
         __title__: {template: "{{string}} {{#if float}}({{float}}){{/if}}"},
         __description__: {template: "{{#if boolean}}{{integer}} persons{{else}}no one{{/if}}"},
