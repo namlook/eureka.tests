@@ -178,5 +178,13 @@ module.exports = {
     },
     About: {
         static: true
+    },
+    HiddenObject: {
+        hidden: true,
+        schema: {
+            title: {
+                type: 'string'
+            }
+        }
     }
 };
