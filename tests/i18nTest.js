@@ -26,22 +26,26 @@ describe('I18n', function() {
         andThen(function() {
             equal(currentURL(), '/i18n/new', "The formular is displayed");
 
-            equal(find('.eureka-new-document-title').text(), "New I18n", "The title form is rendered");
+            equal(find('.eureka-new-document-title').text(), "New I18n", "The string form is rendered");
 
-            equal(find('.eureka-field:eq(0) .eureka-field-name').text(), "title", "The first field's name is 'title'");
+            equal(find('.eureka-field:eq(0) .eureka-field-name').text(), "string", "The first field's name is 'string'");
             equal(find('.eureka-field:eq(1) .eureka-field-name').text(), "multi", "The second field's name is 'multi'");
+            equal(find('.eureka-field:eq(2) .eureka-field-name').text(), "stringAll", "The third field's name is 'stringAll'");
+            equal(find('.eureka-field:eq(3) .eureka-field-name').text(), "multiAll", "The fourth field's name is 'multiAll'");
 
             equal(find('.eureka-i18n-field-input').length, 0, 'there is no i18n input field shown');
 
-            click('.eureka-title-field .eureka-i18n-field-add-input');
+            click('.eureka-string-field .eureka-i18n-field-add-input');
         });
 
+        // string
         andThen(function() {
             equal(find('.eureka-i18n-field-input').length, 1, 'there is one i18n input field shown');
 
-            click('.eureka-title-field .eureka-i18n-field-add-input');
+            click('.eureka-string-field .eureka-i18n-field-add-input');
         });
 
+        // multi
         andThen(function() {
             equal(find('.eureka-i18n-field-input').length, 2, 'there is two i18n input field shown');
 
@@ -58,12 +62,24 @@ describe('I18n', function() {
         andThen(function() {
             equal(find('.eureka-multi-field-input.eureka-i18n-field-inputs').length, 2, 'there is two multi-i18n input field shown');
 
+            click('.eureka-string-all-field .eureka-i18n-field-add-input');
+        });
+
+        // stringAll
+        andThen(function() {
+            equal(find('.eureka-string-all-field .eureka-i18n-field-input').length, 1, 'there is two i18n input field shown');
+            click('.eureka-multi-all-field .eureka-multi-field-add-input');
+        });
+
+        // multiAll
+        andThen(function() {
+            equal(find('.eureka-multi-all-field .eureka-i18n-field-input').length, 1, 'there is two i18n input field shown');
             done();
         });
     });
 
 
-    it('create a i18n', function(done) {
+    it.only('create a i18n', function(done) {
         visit('/');
         andThen(function() {
             equal(find('.eureka-result-item').length, 0, "No result yet");
@@ -71,23 +87,23 @@ describe('I18n', function() {
             visit('/i18n/new');
         });
 
+        // string field
         andThen(function() {
-            click('.eureka-title-field .eureka-i18n-field-add-input');
-            click('.eureka-title-field .eureka-i18n-field-add-input');
-        });
-
-
-
-        andThen(function() {
-            fillIn('.eureka-i18n-field-lang-input:eq(0)[name=title-lang]', 'en');
-            fillIn('.eureka-field-input:eq(0)[name=title]', 'foo');
+            click('.eureka-string-field .eureka-i18n-field-add-input');
+            click('.eureka-string-field .eureka-i18n-field-add-input');
         });
 
         andThen(function() {
-            fillIn('.eureka-i18n-field-lang-input:eq(1)[name=title-lang]', 'fr');
-            fillIn('.eureka-field-input:eq(1)[name=title]', 'toto');
+            fillIn('.eureka-i18n-field-lang-input:eq(0)[name=string-lang]', 'en');
+            fillIn('.eureka-field-input:eq(0)[name=string]', 'foo');
         });
 
+        andThen(function() {
+            fillIn('.eureka-i18n-field-lang-input:eq(1)[name=string-lang]', 'fr');
+            fillIn('.eureka-field-input:eq(1)[name=string]', 'toto');
+        });
+
+        // multi-field
         andThen(function() {
             click('.eureka-multi-field .eureka-multi-field-add-input');
             click('.eureka-multi-field .eureka-multi-field-add-input');
@@ -106,7 +122,6 @@ describe('I18n', function() {
         });
 
 
-
         andThen(function() {
             fillIn('.eureka-multi-field .eureka-i18n-field-lang-input:eq(2)[name=multi-lang]', 'en');
             fillIn('.eureka-multi-field .eureka-field-input:eq(2)[name=multi]', 'foo');
@@ -118,6 +133,52 @@ describe('I18n', function() {
         });
 
 
+        // stringAll field
+        andThen(function() {
+            click('.eureka-string-all-field .eureka-i18n-field-add-input');
+            click('.eureka-string-all-field .eureka-i18n-field-add-input');
+        });
+
+        andThen(function() {
+            fillIn('.eureka-string-all-field .eureka-i18n-field-lang-input:eq(0)[name=string-all-lang]', 'en');
+            fillIn('.eureka-string-all-field .eureka-field-input:eq(0)[name=string-all]', 'hi');
+        });
+
+        andThen(function() {
+            fillIn('.eureka-string-all-field .eureka-i18n-field-lang-input:eq(1)[name=string-all-lang]', 'fr');
+            fillIn('.eureka-string-all-field .eureka-field-input:eq(1)[name=string-all]', 'salut');
+        });
+
+        // multiAll field
+        andThen(function() {
+            click('.eureka-multi-all-field .eureka-multi-field-add-input');
+            click('.eureka-multi-all-field .eureka-multi-field-add-input');
+            click('.eureka-multi-all-field .eureka-multi-field-add-input');
+            click('.eureka-multi-all-field .eureka-multi-field-add-input');
+        });
+
+        andThen(function() {
+            fillIn('.eureka-multi-all-field .eureka-i18n-field-lang-input:eq(0)[name=multi-all-lang]', 'fr');
+            fillIn('.eureka-multi-all-field .eureka-field-input:eq(0)[name=multi-all]', 'toto');
+        });
+
+        andThen(function() {
+            fillIn('.eureka-multi-all-field .eureka-i18n-field-lang-input:eq(1)[name=multi-all-lang]', 'fr');
+            fillIn('.eureka-multi-all-field .eureka-field-input:eq(1)[name=multi-all]', 'tata');
+        });
+
+
+        andThen(function() {
+            fillIn('.eureka-multi-all-field .eureka-i18n-field-lang-input:eq(2)[name=multi-all-lang]', 'en');
+            fillIn('.eureka-multi-all-field .eureka-field-input:eq(2)[name=multi-all]', 'foo');
+        });
+
+        andThen(function() {
+            fillIn('.eureka-multi-all-field .eureka-i18n-field-lang-input:eq(3)[name=multi-all-lang]', 'en');
+            fillIn('.eureka-multi-all-field .eureka-field-input:eq(3)[name=multi-all]', 'bar');
+        });
+
+        // save
         andThen(function() {
             click('.eureka-save-action.eureka-i18n-model');
         });
@@ -131,33 +192,47 @@ describe('I18n', function() {
             click('.eureka-result-item:eq(0) .eureka-item-title a');
         });
 
+        // string field
         andThen(function() {
             equal(currentPath(), 'i18n.display');
             equal(find('.eureka-document-title').text().trim(), 'foo', "The document should have the correct title");
 
-            equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "title", "the first field name is 'title'");
-
-            equal(find('.eureka-document .eureka-field:eq(0) .eureka-i18n-lang:eq(0)').text().trim(), "en", "the lang is english");
-            equal(find('.eureka-document .eureka-field:eq(0) .eureka-i18n-value:eq(0)').text().trim(), "foo", "title english version is correctly filled");
-            equal(find('.eureka-document .eureka-field:eq(0) .eureka-i18n-lang:eq(1)').text().trim(), "fr", "the lang is french");
-            equal(find('.eureka-document .eureka-field:eq(0) .eureka-i18n-value:eq(1)').text().trim(), "toto", "title french version is correctly filled");
-
+            equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "string", "the first field name is 'string'");
+            equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-value').text().trim(), "foo", "string english version is correctly filled");
         });
 
+        // multi field
         andThen(function() {
             equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-name').text(), "multi", "the second field name is 'multi'");
+            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-item:eq(0)').text().trim(), "bar", "multi english version is correctly filled (1)");
+            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-item:eq(1)').text().trim(), "foo", "multi english version is correctly filled (2)");
+        });
 
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-lang:eq(0)').text().trim(), "en", "the lang is english (1)");
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-value:eq(0)').text().trim(), "bar", "multi english version is correctly filled (1)");
+        // stringAll field
+        andThen(function() {
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "stringAll", "the third field name is 'stringAll'");
 
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-lang:eq(1)').text().trim(), "en", "the lang is english (2)");
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-value:eq(1)').text().trim(), "foo", "multi english version is correctly filled (2)");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-i18n-lang:eq(0)').text().trim(), "en", "the lang is english");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-i18n-value:eq(0)').text().trim(), "hi", "stringAll english version is correctly filled");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-i18n-lang:eq(1)').text().trim(), "fr", "the lang is french");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-i18n-value:eq(1)').text().trim(), "salut", "stringAll french version is correctly filled");
+        });
 
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-lang:eq(2)').text().trim(), "fr", "the lang is french (1)");
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-value:eq(2)').text().trim(), "tata", "multi french version is correctly filled (1)");
+        // multiAll field
+        andThen(function() {
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-field-name').text(), "multiAll", "the second field name is 'multiAll'");
 
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-lang:eq(3)').text().trim(), "fr", "the lang is french (2)");
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-i18n-value:eq(3)').text().trim(), "toto", "multi french version is correctly filled (1)");
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-lang:eq(0)').text().trim(), "en", "the lang is english (1)");
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-value:eq(0)').text().trim(), "bar", "multiAll english version is correctly filled (1)");
+
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-lang:eq(1)').text().trim(), "en", "the lang is english (2)");
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-value:eq(1)').text().trim(), "foo", "multiAll english version is correctly filled (2)");
+
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-lang:eq(2)').text().trim(), "fr", "the lang is french (1)");
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-value:eq(2)').text().trim(), "tata", "multiAll french version is correctly filled (1)");
+
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-lang:eq(3)').text().trim(), "fr", "the lang is french (2)");
+            equal(find('.eureka-document .eureka-field:eq(3) .eureka-i18n-value:eq(3)').text().trim(), "toto", "multiAll french version is correctly filled (1)");
 
             done();
         });

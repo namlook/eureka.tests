@@ -67,16 +67,30 @@ module.exports = {
         }
     },
     I18n: {
-        actions: [{name: 'edit'}],
+        actions: [editAction],
+        __title__: {bindTo: 'string'},
         schema: {
-            title: {
+            string: {
                 type: 'string',
-                i18n: true
+                i18n: true,
+                fallbackDefaultLang: true
             },
             multi: {
                 type: 'string',
                 i18n: true,
-                multi: true
+                multi: true,
+                fallbackDefaultLang: true
+            },
+            stringAll: {
+                type: 'string',
+                i18n: true,
+                displayAllLanguages: true
+            },
+            multiAll: {
+                type: 'string',
+                i18n: true,
+                multi: true,
+                displayAllLanguages: true
             }
         }
     },
