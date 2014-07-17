@@ -1,7 +1,7 @@
 
 var equal = chai.assert.equal;
 
-describe('Basic', function() {
+describe('Basic:', function() {
 
     beforeEach(function(done) {
         App.reset();
@@ -17,7 +17,7 @@ describe('Basic', function() {
     });
 
 
-    it('New basic form', function() {
+    it('display the form', function() {
         visit("/basic_object");
 
         andThen(function() {
@@ -27,7 +27,7 @@ describe('Basic', function() {
         andThen(function() {
             equal(currentURL(), '/basic_object/new', "The formular is displayed");
 
-            equal(find('.eureka-new-document-title').text(), "New BasicObject", "The title form is rendered");
+            equal(find('.eureka-new-document-title').text(), "New Basic", "The title form is rendered");
 
             equal(find('.eureka-field:eq(0) .eureka-field-name').text(), "title", "The first field name is 'title'");
             equal(find('.eureka-field:eq(0) .eureka-field-input').attr('type'), "text", "A title is a text input");
@@ -37,14 +37,14 @@ describe('Basic', function() {
             equal(find('.eureka-field:eq(1) .eureka-field-input').attr('type'), "text", "A description is a text input");
             equal(find('.eureka-field:eq(1) .eureka-field-input').attr('name'), "description", "Its name is 'description'");
 
-            equal(find('.eureka-field:eq(2) .eureka-field-name').text(), "thumb", "The third field name is 'thumb'");
+            equal(find('.eureka-field:eq(2) .eureka-field-name').text(), "thumbnail", "The third field name is 'thumbnail'");
             equal(find('.eureka-field:eq(2) .eureka-field-input').attr('type'), "text", "A thumb is a text input");
             equal(find('.eureka-field:eq(2) .eureka-field-input').attr('name'), "thumb", "Its name is 'thumb'");
         });
     });
 
 
-    it('Create a Basic', function() {
+    it('create an object', function() {
         visit('/');
         andThen(function() {
             equal(find('.eureka-result-item').length, 0, "No result yet");
@@ -87,12 +87,63 @@ describe('Basic', function() {
             equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-name').text(), "description", "the first field name is 'description'");
             equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-value').text().trim(), "The best description ever", "description is correctly filled");
 
-            equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "thumb", "the first field name is 'thumb'");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "thumbnail", "the first field name is 'thumbnail'");
             equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-value').text().trim(), "http://placekitten.com/140/140", "thumb is correctly filled");
         });
     });
 
-    it('Simple search basic', function(done) {
+    it('edit an object', function(done) {
+        var model = App.db.BasicObject.get('model');
+        model.create({content: {
+            title: 'foo',
+            description: 'A foo'
+        }}).save().then(function() {
+            visit('/basic_object');
+
+            andThen(function() {
+
+                equal(find('.eureka-result-item').length, 1, "We have now 1 result");
+                equal(find('.eureka-result-item:eq(0) .eureka-item-title a').text().trim(), 'foo', "The result has a correct title");
+
+                click('.eureka-result-item:eq(0) .eureka-item-title a');
+            });
+
+            andThen(function() {
+                click('.eureka-edit-action');
+            });
+
+            andThen(function() {
+                fillIn('.eureka-title-field .eureka-field-input', 'bar');
+                fillIn('.eureka-description-field .eureka-field-input', 'A bar');
+            });
+
+            andThen(function() {
+                click('.eureka-save-action.eureka-basic-object-model');
+            });
+
+            andThen(function() {
+                equal(find('.eureka-title-field .eureka-field-value').text().trim(), 'bar', 'The title should have been modified');
+                equal(find('.eureka-description-field .eureka-field-value').text().trim(), 'A bar', 'The description should have been modified');
+            });
+
+            // there must be only one item
+            andThen(function() {
+                visit('/basic_object');
+            });
+
+            andThen(function() {
+                equal(find('.eureka-result-item').length, 1, "There must be only 1 result again");
+                equal(find('.eureka-result-item:eq(0) .eureka-item-title a').text().trim(), 'bar', "The result has a correct title (2)");
+            });
+
+            andThen(function() {
+                done();
+            });
+        });
+    });
+
+
+    it('simple search', function(done) {
         var model = App.db.BasicObject.get('model');
         var titles = ['basic title 1', 'basic title 2',  'basic hello'];
 
@@ -121,7 +172,7 @@ describe('Basic', function() {
         });
     });
 
-    it('delete a basic', function(done) {
+    it('delete an object', function(done) {
         var model = App.db.BasicObject.get('model');
         var titles = ['basic title 1', 'basic title 2',  'basic hello'];
 

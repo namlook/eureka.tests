@@ -4,6 +4,7 @@ var deleteAction = {name: 'delete', icon: 'glyphicon glyphicon-trash'};
 
 module.exports = {
     BasicObject: {
+        title: 'Basic',
         actions: [editAction, deleteAction],
         schema: {
             title: {
@@ -13,12 +14,16 @@ module.exports = {
                 type: 'string'
             },
             thumb: {
+                title: 'thumbnail',
                 type: 'string'
             }
         }
     },
     Literal: {
-        populate: 1,
+        populate: {
+            index: 1,
+            display: 1
+        },
         __title__: {bindTo: 'string'},
         __description__: {template: 'bool is {{#if boolean}}yes{{else}}no{{/if}} with integer {{integer}} {{#if basic}}and a {{basic.__title__}}{{/if}}'},
         actions: [
@@ -67,6 +72,14 @@ module.exports = {
         }
     },
     I18n: {
+        title: {
+            fr: 'Internationnalisation',
+            en: 'Internationalization',
+        },
+        i18n: {
+            langField: 'lang',
+            queryCurrentLand: true
+        },
         actions: [editAction],
         __title__: {bindTo: 'string'},
         schema: {
@@ -82,6 +95,10 @@ module.exports = {
                 fallbackDefaultLang: true
             },
             stringAll: {
+                title: {
+                    en: 'display all string',
+                    fr: 'chaine internationalisée'
+                },
                 type: 'string',
                 i18n: true,
                 displayAllLanguages: true
@@ -91,6 +108,9 @@ module.exports = {
                 i18n: true,
                 multi: true,
                 displayAllLanguages: true
+            },
+            lang: {
+                type: 'string'
             }
         }
     },
@@ -126,6 +146,9 @@ module.exports = {
         }
     },
     CustomTemplate: {
+        title: {
+            fr: 'template personnalisée'
+        },
         actions: [editAction, deleteAction],
         schema: {
             title: {
@@ -165,7 +188,7 @@ module.exports = {
             integer: {
                 type: 'integer',
                 multi: true,
-                orderBy: 'desc'
+                sortOrder: 'desc'
             },
             float: {
                 type: 'float',

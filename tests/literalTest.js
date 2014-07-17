@@ -174,7 +174,7 @@ describe('Literal', function() {
         });
     });
 
-    it('Create a literal with relation', function(done) {
+    it('create a document with relation', function(done) {
         this.timeout(3500);
         App.db.BasicObject.get('model').create({content: {
             title: 'basic title',
