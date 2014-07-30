@@ -6,127 +6,94 @@ App = EurekaTest = Eurekapp({
     schemas: require('../schemas')
 });
 
-App.initializer({
-    name: 'custom',
 
-    initialize: function(container, application) {
-        // Custom router
-        // overload custom_template.edit route
-        application.Router.map(function() {
-            this.resource('custom_template', function(){
-                this.route('edit', {path: '/:id/edit'});
-           });
-            this.resource('literal', function() {
-                this.route('truthy', {path: '/truthy'});
-                this.route('falsy', {path: '/falsy'});
-            });
-        });
+/***** Custom routes ******/
 
+/*** router ***/
+// overload custom_template.edit route
+App.Router.map(function() {
+    this.resource('custom_template', function(){
+        this.route('edit', {path: '/:id/edit'});
+   });
+    this.resource('literal', function() {
+        this.route('truthy', {path: '/truthy'});
+        this.route('falsy', {path: '/falsy'});
+    });
+});
 
-        application.CustomTemplateEditRoute = application.GenericModelEditRoute.extend({
-            model: function(params) {
-                var model = this._super(params);
-                model.then(function(model) {
-                    model.set('routeField', 'hi!');
-                });
-                return model;
-            }
-        });
-
-
-        application.LiteralTruthyRoute = application.GenericModelIndexRoute.extend({
-            model: function(params) {
-                params.query = {boolean: true};
-                return this._super(params);
-            }
-        });
-
-
-        application.LiteralFalsyRoute = application.GenericModelIndexRoute.extend({
-            model: function(params) {
-                params.query = {boolean: false};
-                return this._super(params);
-            }
-        });
-
-
-        // custom model
-        application.CustomTemplateModel = application.Model.extend({
-            customField: function() {
-                return "custom "+this.get('title');
-            }.property('title')
-        });
-
-
-        // custom controller: overload GenericModelEditController
-        application.CustomTemplateEditController.reopen({
-            ctrlField: function() {
-                return this.get('model.title')+' from controller';
-            }.property('model.title')
-        });
-
-
-        // custom action
-        application.LiteralDisplayController.reopen({
-            actions: {
-                divideFloatBy2: function() {
-                    var model = this.get('model');
-                    model.set('float', model.get('float')/2);
-                    var _this = this;
-                    model.save().then(function(newModel) {
-                        _this.set('model', newModel);
-                    });
-                },
-                toggleBoolean: function() {
-                    var model = this.get('model');
-                    model.toggleProperty('boolean');
-                    var _this = this;
-                    model.save().then(function(newModel) {
-                        _this.set('model', newModel);
-                    });
-                }
-            }
-        });
-
+/*** routes ****/
+App.LiteralTruthyRoute = App.GenericModelIndexRoute.extend({
+    model: function(params) {
+        params.query = {boolean: true};
+        return this._super(params);
     }
 });
 
 
-/*
-// overide the IndexRoute
-EurekaTest.IndexRoute = EurekaTest.IndexRoute.extend({
-   model: function() {
-     return this._super().pushObjects([3, 4, 5, '!!!']);
-   }
+App.LiteralFalsyRoute = App.GenericModelIndexRoute.extend({
+    model: function(params) {
+        params.query = {boolean: false};
+        return this._super(params);
+    }
 });
 
 
-// Implement custom routes
-EurekaTest.TestRoute = Ember.Route.extend({
-  model: function() {
-    console.log('i[oo]uu->', this.get('config'));
-    return [1, 2, 3];
-  }
-});
-
-// Implement custom controllers
-EurekaTest.TestController = Ember.Controller.extend({
-    test: "coucou!"
+App.CustomTemplateEditRoute = App.GenericModelEditRoute.extend({
+    model: function(params) {
+        var model = this._super(params);
+        model.then(function(model) {
+            model.set('routeField', 'hi!');
+        });
+        return model;
+    }
 });
 
 
-// Overload generic controller (here TypeNewController)
-EurekaTest.CustomController = EurekaTest.TypeNewController.extend({
-    test: "coucou!"
+/***** Custom controllers *****/
+// overload GenericModelEditController
+App.CustomTemplateEditController = App.GenericModelEditController.extend({
+    ctrlField: function() {
+        return this.get('model.title')+' from controller';
+    }.property('model.title')
 });
 
 
-// Overload a Model
-// (here: we compute the title property)
-EurekaTest.TweetModel = EurekaTest.Model.extend({
-    title: function() {
-        return this.get('status');
-    }.property('status')
+
+// custom actions
+App.LiteralDisplayController = App.GenericModelDisplayController.extend({
+    actions: {
+        divideFloatBy2: function() {
+            var model = this.get('model');
+            model.set('float', model.get('float')/2);
+            var _this = this;
+            model.save().then(function(newModel) {
+                _this.set('model', newModel);
+            });
+        },
+        toggleBoolean: function() {
+            var model = this.get('model');
+            model.toggleProperty('boolean');
+            var _this = this;
+            model.save().then(function(newModel) {
+                _this.set('model', newModel);
+            });
+        }
+    }
 });
-*/
+
+
+/***** Custom models *****/
+App.CustomTemplateModel = App.Model.extend({
+    customField: function() {
+        return "custom "+this.get('title');
+    }.property('title')
+});
+
+
+App.PopulateModel = App.Model.extend({
+    description: function() {
+        return this.get('integer')+': '+this.get('literal.basic.title');
+    }.property('integer', 'literal.basic.title')
+});
+
 

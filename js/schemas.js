@@ -166,17 +166,6 @@ module.exports = {
         }
     },
     Multi: {
-        // display: {
-        //     title: {bindTo: 'string'},
-        //     description: {template: '--{{string}}--'}
-        // },
-        // actions: [{
-        //     name: 'edit',
-        //     labels: {en: 'edit', fr: 'modifier'}
-        // }, {
-        //     name: 'delete',
-        //     labels: {en: 'delete', fr: 'supprimer'}
-        // }],
         schema: {
             title: {
                 type: 'string'
@@ -210,6 +199,26 @@ module.exports = {
                 //     sortBy: '-integer',
                 //     title: {template: "erf: {{title}}"}
                 // }
+            }
+        }
+    },
+    Populate: {
+        populate: {
+            index: 2,
+            display: 2
+        },
+        __title__: {template: "{{basic.__title__}} and {{literal.__title__}}"},
+        // __description__: on the model
+        sortBy: '-basic.title,literal.string',
+        schema: {
+            basic: {
+                type: 'BasicObject'
+            },
+            literal: {
+                type: 'Literal'
+            },
+            integer: {
+                type: 'integer'
             }
         }
     },

@@ -117,60 +117,60 @@ describe('Literal', function() {
 
 
     it('Edit a Basic relation from a Literal', function(done) {
-        Ember.run(function() {
-            App.db.BasicObject.get('model').create({content: {
-                title: 'basic title',
-                description: 'basic description',
-                thumb: 'http://placekitten.com/165/165'
-            }}).save();
-        });
+        App.db.BasicObject.get('model').create({content: {
+            title: 'basic title',
+            description: 'basic description',
+            thumb: 'http://placekitten.com/165/165'
+        }}).save().then(function() {
 
-        andThen(function(){
             visit('/literal/new');
 
-            fillIn('.eureka-field-input[name=string]', 'hello');
-            find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic t');
-        });
+            andThen(function(){
 
-        andThen(function() {
-            Ember.run.later(function(){
-                equal(find('.tt-suggestion').length, 2, "2 items in relations (including item creation)");
+                fillIn('.eureka-field-input[name=string]', 'hello');
+                find('.eureka-field-input[name=basic]').focus().typeahead('val', 'basic t');
+            });
 
-                find('.tt-suggestion:eq(0)').click();
-            }, 700);
-        });
+            andThen(function() {
+                Ember.run.later(function(){
+                    equal(find('.tt-suggestion').length, 2, "2 items in relations (including item creation)");
 
-        andThen(function() {
-            equal(find('.eureka-selected-relation.basic:contains("basic title")').length, 1, 'The relation is selected');
+                    find('.tt-suggestion:eq(0)').click();
+                }, 700);
+            });
 
-            click('.eureka-save-action');
-        });
+            andThen(function() {
+                equal(find('.eureka-selected-relation.basic:contains("basic title")').length, 1, 'The relation is selected');
 
-        andThen(function() {
-            equal(currentURL(), '/literal', 'We go back to the literals list');
-            equal(find('.eureka-result-item').length, 1, "We have now 1 result");
-            equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'hello', "The result has a correct title");
+                click('.eureka-save-action');
+            });
 
-            equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
-            equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
+            andThen(function() {
+                equal(currentURL(), '/literal', 'We go back to the literals list');
+                equal(find('.eureka-result-item').length, 1, "We have now 1 result");
+                equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'hello', "The result has a correct title");
 
-            click('.eureka-result-item:eq(0) a');
-        });
+                equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
+                equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
-        andThen(function() {
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-name').text(), "basic", "the second field name is 'basic'");
-            equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-value').text().trim(), "basic title", "basic is correctly filled");
-            click('.eureka-document .eureka-field:eq(1) .eureka-field-value a');
-        });
+                click('.eureka-result-item:eq(0) a');
+            });
 
-        andThen(function() {
-            equal(find('.eureka-document-title.eureka-basic-object-model:contains("basic title")').length, 1, 'display the basic title');
-            click('.eureka-edit-action.eureka-basic-object-model');
-        });
+            andThen(function() {
+                equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-name').text(), "basic", "the second field name is 'basic'");
+                equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-value').text().trim(), "basic title", "basic is correctly filled");
+                click('.eureka-document .eureka-field:eq(1) .eureka-field-value a');
+            });
 
-        andThen(function() {
-            assert.match(currentURL(), /^\/basic_object\/\w+\/edit/, 'We are editing a basic page');
-            done();
+            andThen(function() {
+                equal(find('.eureka-document-title.eureka-basic-object-model:contains("basic title")').length, 1, 'display the basic title');
+                click('.eureka-edit-action.eureka-basic-object-model');
+            });
+
+            andThen(function() {
+                assert.match(currentURL(), /^\/basic_object\/\w+\/edit/, 'We are editing a basic page');
+                done();
+            });
         });
     });
 
@@ -258,7 +258,7 @@ describe('Literal', function() {
                 basic: {
                     _id: 'basic'+index%2,
                     title: 'basic title '+index%2,
-                    thumb: 'http://lorempixel.com/15'+index+'/15'+index
+                    thumb: 'http://lorempixel.com/15'+index%2+'/15'+index%2
                 }
             }}).save();
         })).then(function() {
