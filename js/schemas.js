@@ -13,7 +13,7 @@ module.exports = {
             description: {
                 type: 'string'
             },
-            thumb: {
+            thumbUrl: {
                 title: 'thumbnail',
                 type: 'string'
             }
@@ -24,8 +24,9 @@ module.exports = {
             index: 1,
             display: 1
         },
-        __title__: {bindTo: 'string'},
-        __description__: {template: 'bool is {{#if boolean}}yes{{else}}no{{/if}} with integer {{integer}} {{#if basic}}and a {{basic.__title__}}{{/if}}'},
+        aliases: {
+            title: 'string'
+        },
         actions: [
             editAction,
             deleteAction,
@@ -81,7 +82,9 @@ module.exports = {
             queryCurrentLand: true
         },
         actions: [editAction],
-        __title__: {bindTo: 'string'},
+        aliases: {
+            title: 'string'
+        },
         schema: {
             string: {
                 type: 'string',
@@ -115,15 +118,12 @@ module.exports = {
         }
     },
     CustomDescriptor: {
-        __title__: {template: "{{string}} {{#if float}}({{float}}){{/if}}"},
-        __description__: {template: "{{#if boolean}}{{integer}} persons{{else}}no one{{/if}}"},
-        __thumb__: {template: "http://placekitten.com/{{integer}}/{{integer}}"},
+        title: 'really custom descriptor',
         search: {
             field: 'string',
             placeholder: 'search a really custom object...'
         },
         sortBy: '-integer,float',
-        title: 'really custom descriptor',
         schema: {
             string: {
                 type: 'string',
@@ -207,7 +207,6 @@ module.exports = {
             index: 2,
             display: 2
         },
-        __title__: {template: "{{basic.__title__}} and {{literal.__title__}}"},
         // __description__: on the model
         sortBy: '-basic.title,literal.string',
         schema: {

@@ -37,10 +37,10 @@ describe('CustomTemplate', function() {
 
             equal(find('h1.custom-title').text(), "This is the custom list", "Display the custom list");
 
-            equal(find('a.item-title:eq(0)').text().trim(), 'Hello World !!', "The result has a custom title");
+            equal(find('a.item-title:eq(0)').text().trim(), 'Hello World!!', "The result has a custom title");
             equal(find('.item-description:eq(0)').text().trim(), '--Just a thought:custom Hello World--', "The result has a custom description");
 
-            click('a.item-title:contains("Hello World !!")');
+            click('a.item-title:contains("Hello World!!")');
             andThen(function() {
                 equal(currentPath(), 'custom_template.display');
 

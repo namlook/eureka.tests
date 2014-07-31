@@ -39,7 +39,7 @@ describe('Basic:', function() {
 
             equal(find('.eureka-field:eq(2) .eureka-field-name').text(), "thumbnail", "The third field name is 'thumbnail'");
             equal(find('.eureka-field:eq(2) .eureka-field-input').attr('type'), "text", "A thumb is a text input");
-            equal(find('.eureka-field:eq(2) .eureka-field-input').attr('name'), "thumb", "Its name is 'thumb'");
+            equal(find('.eureka-field:eq(2) .eureka-field-input').attr('name'), "thumb-url", "Its name is 'thumb-url'");
         });
     });
 
@@ -59,7 +59,7 @@ describe('Basic:', function() {
             fillIn('.eureka-field-input[name=description]', 'The best description ever');
         });
         andThen(function() {
-            fillIn('.eureka-field-input[name=thumb]', "http://placekitten.com/140/140");
+            fillIn('.eureka-field-input[name=thumb-url]', "http://placekitten.com/140/140");
         });
 
         andThen(function() {
@@ -88,7 +88,7 @@ describe('Basic:', function() {
             equal(find('.eureka-document .eureka-field:eq(1) .eureka-field-value').text().trim(), "The best description ever", "description is correctly filled");
 
             equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-name').text(), "thumbnail", "the first field name is 'thumbnail'");
-            equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-value').text().trim(), "http://placekitten.com/140/140", "thumb is correctly filled");
+            equal(find('.eureka-document .eureka-field:eq(2) .eureka-field-value').text().trim(), "http://placekitten.com/140/140", "thumbUrl is correctly filled");
         });
     });
 

@@ -22,7 +22,7 @@ describe("Test relation auto-suggest", function() {
         App.db.BasicObject.get('model').create({content: {
             title: 'basic title',
             description: 'basic description',
-            thumb: 'http://placekitten.com/167/167'
+            thumbUrl: 'http://placekitten.com/167/167'
         }}).save().then(function() {
 
             visit('/literal/new');
@@ -57,14 +57,14 @@ describe("Test relation auto-suggest", function() {
         App.db.BasicObject.get('model').create({content: {
             title: 'basic title 1',
             description: 'basic description 1',
-            thumb: 'http://placekitten.com/167/167'
+            thumbUrl: 'http://placekitten.com/167/167'
         }}).save();
 
 
         App.db.BasicObject.get('model').create({content: {
             title: 'basic title 2',
             description: 'basic description 2',
-            thumb: 'http://placekitten.com/170/170'
+            thumbUrl: 'http://placekitten.com/170/170'
         }}).save();
 
         andThen(function() {

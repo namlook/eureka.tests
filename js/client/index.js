@@ -83,14 +83,26 @@ App.LiteralDisplayController = App.GenericModelDisplayController.extend({
 
 
 /***** Custom models *****/
+
 App.CustomTemplateModel = App.Model.extend({
     customField: function() {
         return "custom "+this.get('title');
     }.property('title')
 });
 
+App.CustomDescriptorModel = App.Model.extend({
+    thumbUrl: function() {
+        var integer = this.get('integer');
+        return "http://placekitten.com/"+integer+'/'+integer;
+    }.property('integer')
+});
+
 
 App.PopulateModel = App.Model.extend({
+    title: function() {
+        return this.get('basic.title')+' and '+this.get('literal.title');
+    }.property(),
+
     description: function() {
         return this.get('integer')+': '+this.get('literal.basic.title');
     }.property('integer', 'literal.basic.title')
