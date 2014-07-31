@@ -222,6 +222,15 @@ module.exports = {
         }
     },
     About: {
+        title: {
+            en: {
+                plural: 'About'
+            },
+            fr: {
+                singular: 'A propos',
+                plural: 'A propos'
+            }
+        },
         static: true
     },
     HiddenObject: {
