@@ -49,11 +49,11 @@ describe('Populate', function() {
             visit('/populate');
 
             andThen(function() {
-                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0");
-                equal(find('.eureka-item-title:eq(1)').text().trim(), "Pretty basic title 1 and literal 1");
-                equal(find('.eureka-item-title:eq(2)').text().trim(), "Pretty basic title 0 and literal 0");
-                equal(find('.eureka-item-title:eq(3)').text().trim(), "Pretty basic title 0 and literal 1");
-                equal(find('.eureka-item-title:eq(4)').text().trim(), "Pretty basic title 0 and literal 2");
+                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0!!");
+                equal(find('.eureka-item-title:eq(1)').text().trim(), "Pretty basic title 1 and literal 1!!");
+                equal(find('.eureka-item-title:eq(2)').text().trim(), "Pretty basic title 0 and literal 0!!");
+                equal(find('.eureka-item-title:eq(3)').text().trim(), "Pretty basic title 0 and literal 1!!");
+                equal(find('.eureka-item-title:eq(4)').text().trim(), "Pretty basic title 0 and literal 2!!");
 
                 equal(find('.eureka-item-description:eq(0)').text().trim(), "4: basic title 0", 'the description matches');
                 equal(find('.eureka-item-description:eq(1)').text().trim(), "2: basic title 1");
@@ -64,7 +64,7 @@ describe('Populate', function() {
                 click(find('.eureka-item-title a:eq(0)'));
             });
             andThen(function() {
-                equal(find('.eureka-document-title').text().trim(), "Pretty basic title 1 and literal 0", 'the title is correct');
+                equal(find('.eureka-document-title').text().trim(), "Pretty basic title 1 and literal 0!!", 'the title is correct');
                 equal(find('.eureka-document-description').text().trim(), "4: basic title 0", 'the description is correct');
                 done();
             });
@@ -104,11 +104,11 @@ describe('Populate', function() {
 
             andThen(function() {
                 equal(find('.eureka-result-item').length, 5, "We have 5 results");
-                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0");
-                equal(find('.eureka-item-title:eq(1)').text().trim(), "Pretty basic title 1 and literal 1");
-                equal(find('.eureka-item-title:eq(2)').text().trim(), "Pretty basic title 0 and literal 0");
-                equal(find('.eureka-item-title:eq(3)').text().trim(), "Pretty basic title 0 and literal 1");
-                equal(find('.eureka-item-title:eq(4)').text().trim(), "Pretty basic title 0 and literal 2");
+                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0!!");
+                equal(find('.eureka-item-title:eq(1)').text().trim(), "Pretty basic title 1 and literal 1!!");
+                equal(find('.eureka-item-title:eq(2)').text().trim(), "Pretty basic title 0 and literal 0!!");
+                equal(find('.eureka-item-title:eq(3)').text().trim(), "Pretty basic title 0 and literal 1!!");
+                equal(find('.eureka-item-title:eq(4)').text().trim(), "Pretty basic title 0 and literal 2!!");
 
                 equal(find('.eureka-item-description:eq(0)').text().trim(), "4: basic title 0", 'aie');
                 equal(find('.eureka-item-description:eq(1)').text().trim(), "2: basic title 1");
@@ -121,7 +121,7 @@ describe('Populate', function() {
             });
             andThen(function() {
                 equal(find('.eureka-result-item').length, 1, "We have 1 results");
-                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0", 'the title is correct');
+                equal(find('.eureka-item-title:eq(0)').text().trim(), "Pretty basic title 1 and literal 0!!", 'the title is correct');
                 equal(find('.eureka-item-description:eq(0)').text().trim(), "4: basic title 0", "the description is correct");
                 done();
             });

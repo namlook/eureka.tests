@@ -39,7 +39,7 @@ describe("Test relation auto-suggest", function() {
                 Ember.run.later(function(){
                     equal(find('.tt-suggestion').length, 2, 'there are two suggestions');
                     expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title');
-                    equal(find('.tt-suggestion:eq(1):contains("create new BasicObject")').length, 1, 'create new Basic is present');
+                    equal(find('.tt-suggestion:eq(1):contains("create new basic")').length, 1, '--create new basic-- is present');
 
                     $('.tt-suggestion:eq(0)').click();
 
@@ -85,7 +85,7 @@ describe("Test relation auto-suggest", function() {
                     expect(find('.tt-suggestion').length).to.be.equal(3);
                     expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title 1');
                     expect(find('.tt-suggestion:eq(1)').text()).to.be.equal('basic title 2');
-                    expect(find('.tt-suggestion:eq(2):contains("create new Basic")').length).to.be.equal(1);
+                    expect(find('.tt-suggestion:eq(2):contains("create new basic")').length).to.be.equal(1);
 
                     $('.tt-suggestion:eq(0)').click();
 
@@ -100,7 +100,7 @@ describe("Test relation auto-suggest", function() {
                                 equal(find('.tt-suggestion').length, 3, 'there are three suggestions');
                                 expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('basic title 1');
                                 expect(find('.tt-suggestion:eq(1)').text()).to.be.equal('basic title 2');
-                                expect(find('.tt-suggestion:eq(2):contains("create new Basic")').length).to.be.equal(1);
+                                expect(find('.tt-suggestion:eq(2):contains("create new basic")').length).to.be.equal(1);
 
                                 $('.tt-suggestion:eq(1)').click();
 
@@ -147,7 +147,7 @@ describe("Test relation auto-suggest", function() {
                     expect(find('.tt-suggestion').length).to.be.equal(3);
                     expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('literal 1');
                     expect(find('.tt-suggestion:eq(1)').text()).to.be.equal('literal 2');
-                    expect(find('.tt-suggestion:eq(2):contains("create new Literal")').length).to.be.equal(1);
+                    expect(find('.tt-suggestion:eq(2):contains("create new literal")').length).to.be.equal(1);
 
                     $('.tt-suggestion:eq(0)').click();
 
@@ -162,7 +162,7 @@ describe("Test relation auto-suggest", function() {
                                 expect(find('.tt-suggestion').length).to.be.equal(3);
                                 expect(find('.tt-suggestion:eq(0)').text()).to.be.equal('literal 1');
                                 expect(find('.tt-suggestion:eq(1)').text()).to.be.equal('literal 2');
-                                expect(find('.tt-suggestion:eq(2):contains("create new Literal")').length).to.be.equal(1);
+                                expect(find('.tt-suggestion:eq(2):contains("create new literal")').length).to.be.equal(1);
 
                                 $('.tt-suggestion:eq(1)').click();
 

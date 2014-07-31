@@ -82,16 +82,16 @@ describe('Literal', function() {
             andThen(function() {
                 equal(currentURL(), '/literal', 'We go back to the literals list');
                 equal(find('.eureka-result-item').length, 1, "We have now 1 result");
-                equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World', "The result has a correct title");
+                equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World!!', "The result has a correct title");
 
                 equal(find('.eureka-result-item .eureka-item-description').text().trim(), 'bool is yes with integer 42', "The result has a description");
                 equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
 
-                click('.eureka-result-item .eureka-item-title a:contains("Hello World")');
+                click('.eureka-result-item .eureka-item-title a:contains("Hello World!!")');
                 andThen(function() {
                     equal(currentPath(), 'literal.display');
-                    equal(find('.eureka-document-title:contains("Hello World")').length, 1, "The document should have the correct title");
+                    equal(find('.eureka-document-title:contains("Hello World!!")').length, 1, "The document should have the correct title");
 
                     equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "string", "the first field name is 'string'");
                     equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-value').text().trim(), "Hello World", "string is correctly filled");
@@ -148,7 +148,7 @@ describe('Literal', function() {
             andThen(function() {
                 equal(currentURL(), '/literal', 'We go back to the literals list');
                 equal(find('.eureka-result-item').length, 1, "We have now 1 result");
-                equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'hello', "The result has a correct title");
+                equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'hello!!', "The result has a correct title");
 
                 equal(find('.eureka-result-item .eureka-item-description').length, 1, "The result has a description");
                 equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
@@ -204,17 +204,17 @@ describe('Literal', function() {
                     andThen(function() {
                         equal(currentURL(), '/literal', 'We go back to the literals list');
                         equal(find('.eureka-result-item').length, 1, "We have now 1 result");
-                        equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World', "The result has a correct title");
+                        equal(find('.eureka-result-item .eureka-item-title a').text().trim(), 'Hello World!!', "The result has a correct title");
 
                         equal(find('.eureka-result-item .eureka-item-description').text().trim(), 'bool is yes with integer 42 and a basic title', "The result has a description");
                         equal(find('.eureka-result-item .eureka-item-thumb').length, 0, "The result has no thumb");
 
 
-                        click('.eureka-result-item .eureka-item-title a:contains("Hello World")');
+                        click('.eureka-result-item .eureka-item-title a:contains("Hello World!!")');
 
                         andThen(function() {
                             equal(currentPath(), 'literal.display');
-                            equal(find('.eureka-document-title:contains("Hello World")').length, 1, "The document should have the correct title");
+                            equal(find('.eureka-document-title:contains("Hello World!!")').length, 1, "The document should have the correct title");
 
                             equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-name').text(), "string", "the first field name is 'string'");
                             equal(find('.eureka-document .eureka-field:eq(0) .eureka-field-value').text().trim(), "Hello World", "string is correctly filled");
@@ -274,8 +274,8 @@ describe('Literal', function() {
                 equal(find('.eureka-result-item').length, 2, "We have now 2 results");
                 var items = find('.eureka-result-item .eureka-item-title');
                 var titles = items.toArray().map(function(i){return $(i).text().trim();}).sort();
-                equal(titles[0], "literal hello kitty");
-                equal(titles[1], "literal string 2");
+                equal(titles[0], "literal hello kitty!!");
+                equal(titles[1], "literal string 2!!");
                 fillIn('.eureka-search-query-input', 'basic.title = basic title 0');
                 $('.eureka-search-query-input').focusout(); // trigger the search
             });
@@ -284,8 +284,8 @@ describe('Literal', function() {
                 equal(find('.eureka-result-item').length, 2, "We have now 2 results");
                 var items = find('.eureka-result-item .eureka-item-title');
                 var titles = items.toArray().map(function(i){return $(i).text().trim();}).sort();
-                equal(titles[0], "literal hello");
-                equal(titles[1], "literal string 1");
+                equal(titles[0], "literal hello!!");
+                equal(titles[1], "literal string 1!!");
                 done();
             });
 
@@ -316,10 +316,10 @@ describe('Literal', function() {
                 equal(find('select').val(), 'boolean,-integer');
                 var items = find('.eureka-result-item .eureka-item-title');
                 var titles = items.toArray().map(function(i){return $(i).text().trim();});
-                equal(titles[0], "literal string 2");
-                equal(titles[1], "literal string 1", "the second item should be literal string 1");
-                equal(titles[2], "literal hello");
-                equal(titles[3], "literal hello kitty", 'the last item is literal hello kitty');
+                equal(titles[0], "literal string 2!!");
+                equal(titles[1], "literal string 1!!", "the second item should be literal string 1");
+                equal(titles[2], "literal hello!!");
+                equal(titles[3], "literal hello kitty!!", 'the last item is literal hello kitty');
                 $('select').val('string').change();
             });
 
@@ -328,10 +328,10 @@ describe('Literal', function() {
                 equal(find('select').val(), 'string');
                 var items = find('.eureka-result-item .eureka-item-title');
                 var titles = items.toArray().map(function(i){return $(i).text().trim();});
-                equal(titles[0], "literal hello");
-                equal(titles[1], "literal hello kitty", "the second item is literal hello kitty");
-                equal(titles[2], "literal string 1");
-                equal(titles[3], "literal string 2");
+                equal(titles[0], "literal hello!!");
+                equal(titles[1], "literal hello kitty!!", "the second item is literal hello kitty");
+                equal(titles[2], "literal string 1!!");
+                equal(titles[3], "literal string 2!!");
                 done();
             });
         });
