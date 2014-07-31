@@ -4,17 +4,27 @@ var deleteAction = {name: 'delete', icon: 'glyphicon glyphicon-trash'};
 
 module.exports = {
     BasicObject: {
-        title: 'Basic',
+        label: 'Basic',
         actions: [editAction, deleteAction],
         schema: {
             title: {
-                type: 'string'
+                type: 'string',
+                label: {
+                    fr: 'titre'
+                }
             },
             description: {
-                type: 'string'
+                type: 'string',
             },
             thumbUrl: {
-                title: 'thumbnail',
+                label: {
+                    en: 'thumbnail',
+                    fr: 'miniature'
+                },
+                type: 'string'
+            },
+            hiddenField: {
+                hidden: true,
                 type: 'string'
             }
         }
@@ -73,7 +83,7 @@ module.exports = {
         }
     },
     I18n: {
-        title: {
+        label: {
             fr: 'Internationnalisation',
             en: 'Internationalization',
         },
@@ -98,7 +108,7 @@ module.exports = {
                 fallbackDefaultLang: true
             },
             stringAll: {
-                title: {
+                label: {
                     en: 'display all string',
                     fr: 'chaine internationalisée'
                 },
@@ -118,7 +128,7 @@ module.exports = {
         }
     },
     CustomDescriptor: {
-        title: 'really custom descriptor',
+        label: 'really custom descriptor',
         search: {
             field: 'string',
             placeholder: 'search a really custom object...'
@@ -146,7 +156,7 @@ module.exports = {
         }
     },
     CustomTemplate: {
-        title: {
+        label: {
             fr: 'template personnalisée'
         },
         actions: [editAction, deleteAction],
@@ -207,7 +217,6 @@ module.exports = {
             index: 2,
             display: 2
         },
-        // __description__: on the model
         sortBy: '-basic.title,literal.string',
         schema: {
             basic: {
@@ -222,7 +231,7 @@ module.exports = {
         }
     },
     About: {
-        title: {
+        label: {
             en: {
                 plural: 'About'
             },

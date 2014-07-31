@@ -40,6 +40,8 @@ describe('Basic:', function() {
             equal(find('.eureka-field:eq(2) .eureka-field-name').text(), "thumbnail", "The third field name is 'thumbnail'");
             equal(find('.eureka-field:eq(2) .eureka-field-input').attr('type'), "text", "A thumb is a text input");
             equal(find('.eureka-field:eq(2) .eureka-field-input').attr('name'), "thumb-url", "Its name is 'thumb-url'");
+
+            equal(find('.eureka-field .eureka-field-input[name=hidden-field]').length, 0, "hidden field is... well, hidden");
         });
     });
 
