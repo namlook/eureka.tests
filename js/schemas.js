@@ -5,7 +5,6 @@ var deleteAction = {name: 'delete', icon: 'glyphicon glyphicon-trash'};
 module.exports = {
     BasicObject: {
         label: 'Basic',
-        actions: [editAction, deleteAction],
         schema: {
             title: {
                 type: 'string',
@@ -27,37 +26,17 @@ module.exports = {
                 hidden: true,
                 type: 'string'
             }
+        },
+        views: {
+            display: {
+                actions: [editAction, deleteAction]
+            }
         }
     },
     Literal: {
-        populate: {
-            index: 1,
-            display: 1
-        },
         aliases: {
             title: 'string'
         },
-        actions: [
-            editAction,
-            deleteAction,
-            {name: 'divideFloatBy2', label: 'float/2', secondary: true},
-            {
-                name: 'toggleBoolean',
-                field: 'boolean',
-                toggle: {
-                    false: {label: 'check boolean', icon: 'glyphicon glyphicon-unchecked'},
-                    true:  {label: 'uncheck boolean', icon: 'glyphicon glyphicon-check'},
-                }
-            }
-        ],
-        sortBy: [
-            {label: 'String', order: 'string'},
-            {label: 'Boolean (asc) and Integer (desc)', order: 'boolean,-integer', default: true}
-        ],
-        filters: [
-            {route: 'literal.truthy', label: 'Truthy', icon: 'glyphicon glyphicon-ok'},
-            {route: 'literal.falsy', label: 'Falsy', icon: 'glyphicon glyphicon-remove'}
-        ],
         schema: {
             string: {
                 type: 'string',
@@ -80,6 +59,35 @@ module.exports = {
             basic: {
                 type: 'BasicObject'
             }
+        },
+        views: {
+            index: {
+                populate: 1,
+                sortBy: [
+                    {label: 'String', order: 'string'},
+                    {label: 'Boolean (asc) and Integer (desc)', order: 'boolean,-integer', default: true}
+                ],
+                filters: [
+                    {route: 'literal.truthy', label: 'Truthy', icon: 'glyphicon glyphicon-ok'},
+                    {route: 'literal.falsy', label: 'Falsy', icon: 'glyphicon glyphicon-remove'}
+                ],
+            },
+            display: {
+                populate: 1,
+                actions: [
+                    editAction,
+                    deleteAction,
+                    {name: 'divideFloatBy2', label: 'float/2', secondary: true},
+                    {
+                        name: 'toggleBoolean',
+                        field: 'boolean',
+                        toggle: {
+                            false: {label: 'check boolean', icon: 'glyphicon glyphicon-unchecked'},
+                            true:  {label: 'uncheck boolean', icon: 'glyphicon glyphicon-check'},
+                        }
+                    }
+                ]
+            }
         }
     },
     I18n: {
@@ -87,11 +95,6 @@ module.exports = {
             fr: 'Internationnalisation',
             en: 'Internationalization',
         },
-        i18n: {
-            langField: 'lang',
-            queryCurrentLand: true
-        },
-        actions: [editAction],
         aliases: {
             title: 'string'
         },
@@ -125,15 +128,19 @@ module.exports = {
             lang: {
                 type: 'string'
             }
+        },
+        i18n: {
+            langField: 'lang',
+            queryCurrentLand: true
+        },
+        views: {
+            display: {
+                actions: [editAction]
+            }
         }
     },
     CustomDescriptor: {
         label: 'really custom descriptor',
-        search: {
-            field: 'string',
-            placeholder: 'search a really custom object...'
-        },
-        sortBy: '-integer,float',
         schema: {
             string: {
                 type: 'string',
@@ -153,13 +160,26 @@ module.exports = {
             date: {
                 type: 'date'
             }
+        },
+        views: {
+            index: {
+                search: {
+                    field: 'string',
+                    placeholder: 'search a really custom object...'
+                },
+                sortBy: '-integer,float',
+            }
         }
     },
     CustomTemplate: {
         label: {
             fr: 'template personnalisée'
         },
-        actions: [editAction, deleteAction],
+        views: {
+            display: {
+                actions: [editAction, deleteAction]
+            }
+        },
         schema: {
             title: {
                 type: 'string'
@@ -213,11 +233,6 @@ module.exports = {
         }
     },
     Populate: {
-        populate: {
-            index: 2,
-            display: 2
-        },
-        sortBy: '-basic.title,literal.string',
         schema: {
             basic: {
                 type: 'BasicObject'
@@ -227,6 +242,15 @@ module.exports = {
             },
             integer: {
                 type: 'integer'
+            }
+        },
+        views: {
+            index: {
+                populate: 2,
+                sortBy: '-basic.title,literal.string',
+            },
+            display: {
+                populate: 2
             }
         }
     },
