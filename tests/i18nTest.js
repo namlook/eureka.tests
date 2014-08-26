@@ -4,19 +4,6 @@ var assert = chai.assert;
 
 describe('I18n', function() {
 
-    beforeEach(function(done) {
-        App.reset();
-        Ember.$.ajax({
-            url: 'http://localhost:7999/api/1/',
-            type: 'delete',
-            error: function(jqXHR) {
-                console.log('XXX error:', jqXHR.responseText);
-            }
-        }).success(function() {
-            done();
-        });
-    });
-
     it('display a new form', function(done) {
         visit("/i18n");
         andThen(function() {

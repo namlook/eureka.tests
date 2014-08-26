@@ -4,19 +4,6 @@ var assert = chai.assert;
 
 describe('Populate', function() {
 
-    beforeEach(function(done) {
-        App.reset();
-        Ember.$.ajax({
-            url: 'http://localhost:7999/api/1/',
-            type: 'delete',
-            error: function(jqXHR) {
-                console.log('XXX error:', jqXHR.responseText);
-            }
-        }).success(function() {
-            done();
-        });
-    });
-
     it('should list items', function(done) {
         var model = App.db.Populate.get('model');
         var strings = [1, 2, 3, 4, 5];

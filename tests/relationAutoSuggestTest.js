@@ -4,20 +4,6 @@ var equal = chai.assert.equal;
 
 describe("Test relation auto-suggest", function() {
 
-    beforeEach(function(done) {
-        Ember.$.ajax({
-            url: 'http://localhost:7999/api/1/',
-            type: 'delete',
-            error: function(jqXHR) {
-                console.log('XXX error:', jqXHR.responseText);
-            }
-        }).success(function() {
-            done();
-        });
-        App.reset();
-    });
-
-
     it('Test single relations auto-suggest', function(done) {
         App.db.BasicObject.get('model').create({content: {
             title: 'basic title',

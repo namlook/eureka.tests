@@ -1,10 +1,7 @@
 
-
-App = EurekaTest = Eurekapp({
-    name: 'EurekaTest',
-    apiURI: 'http://localhost:7999/api/1',
-    schemas: require('../schemas')
-});
+var config = require('../../config/frontend');
+config.schemas = require('../schemas');
+App = EurekaTest = Eurekapp(config);
 
 
 /***** Custom routes ******/

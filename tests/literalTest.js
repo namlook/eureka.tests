@@ -4,19 +4,6 @@ var assert = chai.assert;
 
 describe('Literal', function() {
 
-    beforeEach(function(done) {
-        App.reset();
-        Ember.$.ajax({
-            url: 'http://localhost:7999/api/1/',
-            type: 'delete',
-            error: function(jqXHR) {
-                console.log('XXX error:', jqXHR.responseText);
-            }
-        }).success(function() {
-            done();
-        });
-    });
-
     it('display a new literal form', function(done) {
         visit("/literal");
         andThen(function() {
